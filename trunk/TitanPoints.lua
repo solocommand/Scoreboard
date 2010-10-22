@@ -4,11 +4,11 @@
 --  Local variables
 ----------------------------------------------------------------------
 
-local bDebugMode = true;
+local bDebugMode = false;
 TITAN_POINTS_ID = "Points";
 TITAN_POINTS_VERSION = "4.0.1b1";
 TITAN_NIL = false;
-TITAN_POINTS_TAB_NUMBER = 3;	-- Currency Tab #
+TITAN_POINTS_TAB = "TokenFrame";	-- Currency Tab
 
 ----------------------------------------------------------------------
 --  TitanPanelPointsButton_OnLoad(self)
@@ -43,7 +43,7 @@ function TitanPanelPointsButton_OnLoad(self)
 			ShowLabel = 1,
 			ShowPointLabels = 1,
 			ShowShortLabels = 0,
-			ShowIcons = 1,
+			ShowIcons = 0,
 			ShowIcon = 1,
 			ShowMem = 0,
 		  }
@@ -61,7 +61,6 @@ end
 
 ----------------------------------------------------------------------
 --  TitanPanelPointsButton_OnEvent(self, event, ...)
---  Traps and deals with BN events ^^
 ----------------------------------------------------------------------
 
 function TitanPanelPointsButton_OnEvent(self, event, ...)
@@ -87,12 +86,7 @@ end
 function TitanPanelPointsButton_OnClick(self, button)
 
 	if (button == "LeftButton") then
-		if (not FriendsFrame:IsVisible()) then
-			ToggleFriendsFrame(TITAN_POINTS_TAB_NUMBER);
-			FriendsFrame_Update();
-		elseif (FriendsFrame:IsVisible()) then
-			ToggleFriendsFrame(TITAN_POINTS_TAB_NUMBER);
-		end
+		ToggleCharacter(TITAN_POINTS_TAB);
 	end
 	
 end
@@ -128,6 +122,81 @@ end
 function TitanPanelPointsButton_OnUpdate(elapsed)
 end
 
+----------------------------------------------------------------------
+--  TitanPanelPoints_GetIcon(CurrencyType)
+----------------------------------------------------------------------
+
+function TitanPanelPoints_GetIcon(CurrencyType)
+	local icon = nil;
+	local faction = UnitFactionGroup( "player" );
+	
+	if (CurrencyType == TITAN_POINTS_VALOR) then
+		--
+	elseif (CurrencyType == TITAN_POINTS_JUSTICE) then
+		--
+	elseif (CurrencyType == TITAN_POINTS_CONQUEST) then
+		if faction then
+			icon = [[Interface\PVPFrame\PVPCurrency-Conquest-]]..faction;
+		end
+	elseif (CurrencyType == TITAN_POINTS_HONOR) then
+		if faction then
+			icon = [[Interface\PVPFrame\PVPCurrency-Honor-]]..faction;
+		end
+	end
+	
+	if not icon then
+		icon = [[Interface\Icons\Temp]];
+	end
+	
+	icon = "|T"..icon..":0|t ";
+	--icon = "|T"..icon..":40:40:0:-3|t ";
+	--icon = "|T"..icon..":16:16:0:0:64:64:4:60:4:60|t ";
+	
+	return icon;
+	
+end
+
+----------------------------------------------------------------------
+--  TitanPanelPoints_GetLabel(CurrencyType)
+----------------------------------------------------------------------
+
+function TitanPanelPoints_GetLabel(CurrencyType)
+	local label = nil;
+	local showLabels = TitanGetVar(TITAN_POINTS_ID, "ShowPointLabels");
+	local shortLabels = TitanGetVar(TITAN_POINTS_ID, "ShowShortLabels");
+	
+	if (showLabels ~= nil) then
+		if(shortLabels ~= nil) then
+			if(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
+				label = TITAN_POINTS_LABEL_VALOR_SHORT;
+			elseif(CurrencyType==TITAN_POINTS_JUSTICE) and TitanGetVar(TITAN_POINTS_ID,"ShowJustice") then
+				label = TITAN_POINTS_LABEL_JUSTICE_SHORT;
+			elseif(CurrencyType==TITAN_POINTS_CONQUEST) and TitanGetVar(TITAN_POINTS_ID,"ShowConquest") then
+				label = TITAN_POINTS_LABEL_CONQUEST_SHORT;
+			elseif(CurrencyType==TITAN_POINTS_HONOR) and TitanGetVar(TITAN_POINTS_ID,"ShowHonor") then
+				label = TITAN_POINTS_LABEL_HONOR_SHORT;
+			else
+				label = TITAN_POINTS_LABEL_SPACER;
+			end
+		else
+			if(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
+				label = TITAN_POINTS_LABEL_VALOR;
+			elseif(CurrencyType==TITAN_POINTS_JUSTICE) and TitanGetVar(TITAN_POINTS_ID,"ShowJustice") then
+				label = TITAN_POINTS_LABEL_JUSTICE;
+			elseif(CurrencyType==TITAN_POINTS_CONQUEST) and TitanGetVar(TITAN_POINTS_ID,"ShowConquest") then
+				label = TITAN_POINTS_LABEL_CONQUEST;
+			elseif(CurrencyType==TITAN_POINTS_HONOR) and TitanGetVar(TITAN_POINTS_ID,"ShowHonor") then
+				label = TITAN_POINTS_LABEL_HONOR;
+			else
+				label = TITAN_POINTS_LABEL_SPACER;
+			end
+		end
+	else
+		label = TITAN_POINTS_LABEL_SPACER;
+	end
+	
+	return label;
+end
 
 ----------------------------------------------------------------------
 -- TitanPanelPointsButton_GetButtonText(id)
@@ -155,91 +224,30 @@ function TitanPanelPointsButton_GetButtonText(id)
 			-- Get Currency Info
 			name, isHeader, isExpanded, isUnused, isWatched, count, extraCurrencyType, icon, itemID = GetCurrencyListInfo(CurrencyIndex)
 
-			-- If supported currency type
-			if (name=="Valor Points") or (name=="Justice Points") or (name=="Conquest Points") or (name=="Honor Points") then
-			
-				-- Display point icon?
-				if (TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
-					-- Show currency icon from `icon' variable
-					buttonRichText = buttonRichText.."[icon]";
-				end
-				
-				-- Display Point Label?
-				if (TitanGetVar(TITAN_POINTS_ID,"ShowPointLabels") ~= nil) then
-					-- Display Short Labels?
-					if(TitanGetVar(TITAN_POINTS_ID,"ShowShortLabels") ~= nil) then
-						-- Short Labels
-						--buttonRichText = buttonRichText..TitanUtils_GetNormalText("VP: ");
-					else
-						-- Normal Labels
-						--buttonRichText = buttonRichText..TitanUtils_GetNormalText("Valor Points: ");
-					end
-				else
-					--buttonRichText = buttonRichText.." ";
-				end
-				
-				-- Valor Points
-				if (name=="Valor Points") and (TitanGetVar(TITAN_POINTS_ID,"ShowValor") ~= nil) then
-					local temp = nil;
-					if(TitanGetVar(TITAN_POINTS_ID,"ShowPointLabels") ~= nil) then
-						if (TitanGetVar(TITAN_POINTS_ID,"ShowShortLabels") ~= nil) then
-							temp = format(TITAN_POINTS_LABEL_VALOR_SHORT,TitanUtils_GetHighlightText(count));
-						else
-							temp = format(TITAN_POINTS_LABEL_VALOR,TitanUtils_GetHighlightText(count));
-						end
-					else
-						temp = format(TITAN_POINTS_LABEL_SPACER, TitanUtils_GetHighlightText(count));
-					end
-					buttonRichText = buttonRichText..temp;
-				end
-				
-				-- Justice Points
-				if (name=="Justice Points") and (TitanGetVar(TITAN_POINTS_ID,"ShowJustice") ~= nil) then
-					local temp = nil;
-					if(TitanGetVar(TITAN_POINTS_ID,"ShowPointLabels") ~= nil) then
-						if (TitanGetVar(TITAN_POINTS_ID,"ShowShortLabels") ~= nil) then
-							temp = format(TITAN_POINTS_LABEL_JUSTICE_SHORT,TitanUtils_GetHighlightText(count));
-						else
-							temp = format(TITAN_POINTS_LABEL_JUSTICE,TitanUtils_GetHighlightText(count));
-						end
-					else
-						temp = format(TITAN_POINTS_LABEL_SPACER, TitanUtils_GetHighlightText(count));
-					end
-					buttonRichText = buttonRichText..temp;
-				end
-				
-				-- Conquest Points
-				if (name=="Conquest Points") and (TitanGetVar(TITAN_POINTS_ID,"ShowConquest") ~= nil) then
-					local temp = nil;
-					if(TitanGetVar(TITAN_POINTS_ID,"ShowPointLabels") ~= nil) then
-						if (TitanGetVar(TITAN_POINTS_ID,"ShowShortLabels") ~= nil) then
-							temp = format(TITAN_POINTS_LABEL_CONQUEST_SHORT,TitanUtils_GetHighlightText(count));
-						else
-							temp = format(TITAN_POINTS_LABEL_CONQUEST, TitanUtils_GetHighlightText(count));
-						end
-					else
-						temp = format(TITAN_POINTS_LABEL_SPACER, TitanUtils_GetHighlightText(count));
-					end
-					buttonRichText = buttonRichText..temp;
-				end
-				
-				-- Honor Points
-				if (name=="Honor Points") and (TitanGetVar(TITAN_POINTS_ID,"ShowHonor") ~= nil) then
-					local temp = nil;
-					if(TitanGetVar(TITAN_POINTS_ID,"ShowPointLabels") ~= nil) then
-						if (TitanGetVar(TITAN_POINTS_ID,"ShowShortLabels") ~= nil) then
-							temp = format(TITAN_POINTS_LABEL_HONOR_SHORT,TitanUtils_GetHighlightText(count));
-						else
-							temp = format(TITAN_POINTS_LABEL_HONOR,TitanUtils_GetHighlightText(count));
-						end
-					else
-						temp = format(TITAN_POINTS_LABEL_SPACER, TitanUtils_GetHighlightText(count));
-					end
-					buttonRichText = buttonRichText..temp;
-				end
-				
+			-- Valor Points
+			if (name==TITAN_POINTS_VALOR) and (TitanGetVar(TITAN_POINTS_ID,"ShowValor") ~= nil) then
+				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_VALOR); end
+				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_VALOR), TitanUtils_GetHighlightText(count));
 			end
-		
+			
+			-- Justice Points
+			if (name==TITAN_POINTS_JUSTICE) and (TitanGetVar(TITAN_POINTS_ID,"ShowJustice") ~= nil) then
+				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_JUSTICE); end
+				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_JUSTICE), TitanUtils_GetHighlightText(count));
+			end
+			
+			-- Conquest Points
+			if (name==TITAN_POINTS_CONQUEST) and (TitanGetVar(TITAN_POINTS_ID,"ShowConquest") ~= nil) then
+				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_CONQUEST); end
+				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_CONQUEST), TitanUtils_GetHighlightText(count));
+			end
+			
+			-- Honor Points
+			if (name==TITAN_POINTS_HONOR) and (TitanGetVar(TITAN_POINTS_ID,"ShowHonor") ~= nil) then
+				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_HONOR); end
+				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_HONOR), TitanUtils_GetHighlightText(count));
+			end
+			
 		end
 		
 	end

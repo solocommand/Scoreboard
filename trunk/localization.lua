@@ -25,5 +25,10 @@ TITAN_POINTS_LABEL_HONOR = "Honor Points: %s ";
 TITAN_POINTS_LABEL_HONOR_SHORT = "HP: %s ";
 TITAN_POINTS_LABEL_SPACER = " %s ";
 
+TITAN_POINTS_VALOR = "Valor Points";
+TITAN_POINTS_JUSTICE = "Justice Points";
+TITAN_POINTS_CONQUEST = "Conquest Points";
+TITAN_POINTS_HONOR = "Honor Points";
+
 TITAN_POINTS_TOOLTIP = "Currency Points";
 

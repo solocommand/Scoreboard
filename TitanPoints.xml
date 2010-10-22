@@ -14,7 +14,7 @@
 						TitanPanelPointsButton_OnEvent(self, event, ...);
 					</OnEvent>
 					<OnClick>
-						TitanPanelSocialButton_OnClick(self, button);
+						TitanPanelPointsButton_OnClick(self, button);
 						TitanPanelButton_OnClick(self, button);
 					</OnClick>													
 				</Scripts>

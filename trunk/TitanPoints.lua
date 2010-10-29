@@ -289,7 +289,7 @@ function TitanPanelPointsButton_GetTooltipText()
 	end
 	
 	if (TitanGetVar(TITAN_POINTS_ID, "ShowMem") ~=nil) then
-		tooltipRichText = tooltipRichText.." \nTitanPoints Memory Utilization:\t|cff00FF00"..floor(GetAddOnMemoryUsage( "TitanPoints")).." Kb|r";
+		tooltipRichText = tooltipRichText.." \n"..TITAN_POINTS_TOOLTIP_MEM.."\t|cff00FF00"..floor(GetAddOnMemoryUsage("TitanPoints")).." "..TITAN_POINTS_TOOLTIP_MEM_UNIT.."|r";
 	end
 	
 	-- return button text

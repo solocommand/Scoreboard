@@ -73,3 +73,44 @@ TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
 TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
 	
 end
+
+-- frFR
+
+if (GetLocale() == "deDE") then
+
+	-- Last Update by solocommand: 10/29/2010
+
+	TITAN_POINTS_MENU_CONQUEST = "Eroberungspunkte";
+	TITAN_POINTS_MENU_HIDE = "Ausblenden";
+	--TITAN_POINTS_MENU_HONOR = "Honor Points";
+	--TITAN_POINTS_MENU_ICONS = "Show Point Icons";
+	--TITAN_POINTS_MENU_JUSTICE = "Justice Points";
+	--TITAN_POINTS_MENU_LABELS = "Show Point Labels";
+	TITAN_POINTS_MENU_MEM = "Zeige Spiecher Verbrauch";
+	--TITAN_POINTS_MENU_SHORT_LABELS = "Use Short Labels";
+	--TITAN_POINTS_MENU_TEXT = "TitanPoints";
+	--TITAN_POINTS_MENU_VALOR = "Valor Points";
+
+	--TITAN_POINTS_BUTTON_LABEL = "Points: ";
+
+	--TITAN_POINTS_LABEL_VALOR = "Valor Points: %s ";
+	--TITAN_POINTS_LABEL_VALOR_SHORT = "VP: %s ";
+	--TITAN_POINTS_LABEL_JUSTICE = "Justice Points: %s ";
+	--TITAN_POINTS_LABEL_JUSTICE_SHORT = "JP: %s ";
+	TITAN_POINTS_LABEL_CONQUEST = "Eroberungspunkte: %s ";
+	--TITAN_POINTS_LABEL_CONQUEST_SHORT = "CP: %s ";
+	--TITAN_POINTS_LABEL_HONOR = "Honor Points: %s ";
+	--TITAN_POINTS_LABEL_HONOR_SHORT = "HP: %s ";
+	--TITAN_POINTS_LABEL_SPACER = " %s ";
+
+
+	--TITAN_POINTS_VALOR = "Valor Points";
+	--TITAN_POINTS_JUSTICE = "Justice Points";
+	TITAN_POINTS_CONQUEST = "Eroberungspunkte";
+	--TITAN_POINTS_HONOR = "Honor Points";
+
+	--TITAN_POINTS_TOOLTIP = "Currency Points";
+	TITAN_POINTS_TOOLTIP_MEM = "Speicher Verbrauch:";
+	TITAN_POINTS_TOOLTIP_MEM_UNIT = "KB";
+	
+end

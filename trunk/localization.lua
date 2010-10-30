@@ -74,7 +74,7 @@ TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
 	
 end
 
--- frFR
+-- deDE
 
 if (GetLocale() == "deDE") then
 

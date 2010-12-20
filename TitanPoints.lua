@@ -42,11 +42,11 @@ function TitanPanelPointsButton_OnLoad(self)
 			ShowHonor = 1,
 			ShowLabel = 1,
 			ShowPointLabels = 1,
-			ShowShortLabels = 0,
-			ShowIcons = 0,
+			ShowShortLabels = false,
+			ShowIcons = false,
 			ShowIcon = 1,
-			ShowMem = 0,
-			ShowHKs = 0,
+			ShowMem = false,
+			ShowHKs = false,
 		  }
 	};
 

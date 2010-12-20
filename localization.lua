@@ -45,8 +45,8 @@ if (GetLocale() == "frFR") then
 -- Last Update by Sasmira: 12/20/2010
 
 TITAN_POINTS_MENU_CONQUEST = "Points de conquête";
-TITAN_POINTS_MENU_HIDE = "Cacher"; -- Missing in English and don't work in french
---TITAN_POINTS_MENU_HKS = "Honor Kills";
+TITAN_POINTS_MENU_HIDE = "Cacher";
+TITAN_POINTS_MENU_HKS = "Victoires Honorables";
 TITAN_POINTS_MENU_HONOR = "Points d'honneur";
 TITAN_POINTS_MENU_ICONS = "Afficher l'icône";
 TITAN_POINTS_MENU_JUSTICE = "Points de justice";
@@ -66,20 +66,21 @@ TITAN_POINTS_LABEL_CONQUEST = "Points de conquête: %s ";
 TITAN_POINTS_LABEL_CONQUEST_SHORT = "PC: %s ";
 TITAN_POINTS_LABEL_HONOR = "Points d'honneur: %s ";
 TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
---TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
---TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
+TITAN_POINTS_LABEL_HKS = "Victoires Honorables: %s ";
+TITAN_POINTS_LABEL_HKS_SHORT = "VH: %s ";
 
 TITAN_POINTS_VALOR = "Points de vaillance";
 TITAN_POINTS_JUSTICE = "Points de justice";
 TITAN_POINTS_CONQUEST = "Points de conquête";
 TITAN_POINTS_HONOR = "Points d'honneur";
---TITAN_POINTS_HKS = "Honor Kills";
+TITAN_POINTS_HKS = "Victoires Honorables";
 
 TITAN_POINTS_TOOLTIP = "Monnaies";
 TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
 TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
 	
 end
+
 
 -- deDE
 

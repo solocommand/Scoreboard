@@ -6,7 +6,7 @@
 
 local bDebugMode = false;
 TITAN_POINTS_ID = "Points";
-TITAN_POINTS_VERSION = "4.0.1b2";
+TITAN_POINTS_VERSION = "4.0.1b3";
 TITAN_NIL = false;
 TITAN_POINTS_TAB = "TokenFrame";	-- Currency Tab
 
@@ -46,6 +46,7 @@ function TitanPanelPointsButton_OnLoad(self)
 			ShowIcons = 0,
 			ShowIcon = 1,
 			ShowMem = 0,
+			ShowHKs = 0,
 		  }
 	};
 
@@ -103,6 +104,7 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_JUSTICE, TITAN_POINTS_ID, "ShowJustice");
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_CONQUEST, TITAN_POINTS_ID, "ShowConquest");
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_HONOR, TITAN_POINTS_ID, "ShowHonor");
+	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_HKS, TITAN_POINTS_ID, "ShowHKs");
 	TitanPanelRightClickMenu_AddSpacer();
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABELS, TITAN_POINTS_ID, "ShowPointLabels");
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SHORT_LABELS, TITAN_POINTS_ID, "ShowShortLabels");
@@ -175,6 +177,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
 				label = TITAN_POINTS_LABEL_CONQUEST_SHORT;
 			elseif(CurrencyType==TITAN_POINTS_HONOR) and TitanGetVar(TITAN_POINTS_ID,"ShowHonor") then
 				label = TITAN_POINTS_LABEL_HONOR_SHORT;
+			elseif(CurrencyType==TITAN_POINTS_HKS) and TitanGetVar(TITAN_POINTS_ID,"ShowHKs") then
+				label = TITAN_POINTS_LABEL_HKS_SHORT;
 			else
 				label = TITAN_POINTS_LABEL_SPACER;
 			end
@@ -187,6 +191,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
 				label = TITAN_POINTS_LABEL_CONQUEST;
 			elseif(CurrencyType==TITAN_POINTS_HONOR) and TitanGetVar(TITAN_POINTS_ID,"ShowHonor") then
 				label = TITAN_POINTS_LABEL_HONOR;
+			elseif(CurrencyType==TITAN_POINTS_HKS) and TitanGetVar(TITAN_POINTS_ID,"ShowHKs") then
+				label = TITAN_POINTS_LABEL_HKS;
 			else
 				label = TITAN_POINTS_LABEL_SPACER;
 			end
@@ -252,6 +258,14 @@ function TitanPanelPointsButton_GetButtonText(id)
 		
 	end
 	
+	if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
+		-- Get Honor Kills
+		HKs, null = GetPVPLifetimeStats()
+		if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_HKS); end
+		buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
+
+	end
+	
 	-- return button text
 	return TITAN_POINTS_BUTTON_LABEL, buttonRichText;
 
@@ -288,6 +302,15 @@ function TitanPanelPointsButton_GetTooltipText()
 		
 	end
 	
+	if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
+		-- Get Honor Kills
+		-- temp for testing: 999
+		HKs, null = GetPVPLifetimeStats()
+		tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
+		format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
+	end
+	
+	-- Get Honor Kills
 	if (TitanGetVar(TITAN_POINTS_ID, "ShowMem") ~=nil) then
 		tooltipRichText = tooltipRichText.." \n"..TITAN_POINTS_TOOLTIP_MEM.."\t|cff00FF00"..floor(GetAddOnMemoryUsage("TitanPoints")).." "..TITAN_POINTS_TOOLTIP_MEM_UNIT.."|r";
 	end

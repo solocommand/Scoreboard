@@ -4,6 +4,7 @@
 
 TITAN_POINTS_MENU_CONQUEST = "Conquest Points";
 TITAN_POINTS_MENU_HIDE = "Hide";
+TITAN_POINTS_MENU_HKS = "Honor Kills";
 TITAN_POINTS_MENU_HONOR = "Honor Points";
 TITAN_POINTS_MENU_ICONS = "Show Point Icons";
 TITAN_POINTS_MENU_JUSTICE = "Justice Points";
@@ -23,12 +24,15 @@ TITAN_POINTS_LABEL_CONQUEST = "Conquest Points: %s ";
 TITAN_POINTS_LABEL_CONQUEST_SHORT = "CP: %s ";
 TITAN_POINTS_LABEL_HONOR = "Honor Points: %s ";
 TITAN_POINTS_LABEL_HONOR_SHORT = "HP: %s ";
+TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
+TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 TITAN_POINTS_LABEL_SPACER = " %s ";
 
 TITAN_POINTS_VALOR = "Valor Points";
 TITAN_POINTS_JUSTICE = "Justice Points";
 TITAN_POINTS_CONQUEST = "Conquest Points";
 TITAN_POINTS_HONOR = "Honor Points";
+TITAN_POINTS_HKS = "Honor Kills";
 
 TITAN_POINTS_TOOLTIP = "Currency Points";
 TITAN_POINTS_TOOLTIP_MEM = "Memory Utilization:";
@@ -42,6 +46,7 @@ if (GetLocale() == "frFR") then
 
 TITAN_POINTS_MENU_CONQUEST = "Points de conquête";
 TITAN_POINTS_MENU_HIDE = "Cacher"; -- Missing in English and don't work in french
+--TITAN_POINTS_MENU_HKS = "Honor Kills";
 TITAN_POINTS_MENU_HONOR = "Points d'honneur";
 TITAN_POINTS_MENU_ICONS = "Afficher l'icône";
 TITAN_POINTS_MENU_JUSTICE = "Points de justice";
@@ -61,11 +66,14 @@ TITAN_POINTS_LABEL_CONQUEST = "Points de conquête: %s ";
 TITAN_POINTS_LABEL_CONQUEST_SHORT = "PC: %s ";
 TITAN_POINTS_LABEL_HONOR = "Points d'honneur: %s ";
 TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
+--TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
+--TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 
 TITAN_POINTS_VALOR = "Sceau de champion";
 TITAN_POINTS_JUSTICE = "Points de justice";
 TITAN_POINTS_CONQUEST = "Points de conquête";
 TITAN_POINTS_HONOR = "Points d'honneur";
+--TITAN_POINTS_HKS = "Honor Kills";
 
 TITAN_POINTS_TOOLTIP = "Monnaies";
 TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
@@ -81,6 +89,7 @@ if (GetLocale() == "deDE") then
 
 	TITAN_POINTS_MENU_CONQUEST = "Zeige Eroberungspunkte";
 	TITAN_POINTS_MENU_HIDE = "Ausblenden";
+	--TITAN_POINTS_MENU_HKS = "Honor Kills";
 	TITAN_POINTS_MENU_HONOR = "Zeige Ehrenpunkte";
 	--TITAN_POINTS_MENU_ICONS = "Show Point Icons";
 	TITAN_POINTS_MENU_JUSTICE = "Zeige Gerechtigkeitspunkte";
@@ -100,11 +109,14 @@ if (GetLocale() == "deDE") then
 	TITAN_POINTS_LABEL_CONQUEST_SHORT = "ErP: %s ";
 	TITAN_POINTS_LABEL_HONOR = "Ehrenpunkte: %s ";
 	ITAN_POINTS_LABEL_HONOR_SHORT = "EhP: %s ";
+	--TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
+	--TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 
 	TITAN_POINTS_VALOR = "Tapferkeitspunkte";
 	TITAN_POINTS_JUSTICE = "Gerechtigkeitspunkte";
 	TITAN_POINTS_CONQUEST = "Eroberungspunkte";
 	TITAN_POINTS_HONOR = "Ehrenpunkte";
+	--TITAN_POINTS_HKS = "Honor Kills";
 
 	TITAN_POINTS_TOOLTIP = "Währungen Punkte";
 	TITAN_POINTS_TOOLTIP_MEM = "Speicher Verbrauch:";
@@ -120,6 +132,7 @@ if (GetLocale() == "esES") then
 
 	TITAN_POINTS_MENU_CONQUEST = "Mostrar puntos de conquista";
 	TITAN_POINTS_MENU_HIDE = "Ocultar";
+	--TITAN_POINTS_MENU_HKS = "Honor Kills";
 	TITAN_POINTS_MENU_HONOR = "Mostrar puntos de valor";
 	TITAN_POINTS_MENU_ICONS = "Mostrar icono de puntos";
 	TITAN_POINTS_MENU_JUSTICE = "Mostrar puntos de justicia";
@@ -139,11 +152,14 @@ if (GetLocale() == "esES") then
 	TITAN_POINTS_LABEL_CONQUEST_SHORT = "PC: %s ";
 	TITAN_POINTS_LABEL_HONOR = "Puntos de honor: %s ";
 	TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
+	--TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
+	--TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 
 	TITAN_POINTS_VALOR = "Puntos de valor";
 	TITAN_POINTS_JUSTICE = "Puntos de justicia";
 	TITAN_POINTS_CONQUEST = "Puntos de conquista";
 	TITAN_POINTS_HONOR = "Puntos de honor";
+	--TITAN_POINTS_HKS = "Honor Kills";
 
 	TITAN_POINTS_TOOLTIP = "Puntos de Monedas";
 	TITAN_POINTS_TOOLTIP_MEM = "Uso de Memoria:";

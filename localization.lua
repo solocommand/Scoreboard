@@ -42,7 +42,7 @@ TITAN_POINTS_TOOLTIP_MEM_UNIT = "Kb";
 
 if (GetLocale() == "frFR") then
 
--- Last Update by Sasmira: 10/29/2010
+-- Last Update by Sasmira: 12/20/2010
 
 TITAN_POINTS_MENU_CONQUEST = "Points de conquête";
 TITAN_POINTS_MENU_HIDE = "Cacher"; -- Missing in English and don't work in french
@@ -54,12 +54,12 @@ TITAN_POINTS_MENU_LABELS = "Afficher les noms";
 TITAN_POINTS_MENU_MEM = "Consommation de mémoire";
 TITAN_POINTS_MENU_SHORT_LABELS = "Utiliser les noms courts";
 TITAN_POINTS_MENU_TEXT = "TitanPoints";
-TITAN_POINTS_MENU_VALOR = "Sceau de champion";
+TITAN_POINTS_MENU_VALOR = "Points de vaillance";
 
 TITAN_POINTS_BUTTON_LABEL = "Points: ";
 
-TITAN_POINTS_LABEL_VALOR = "Sceau de champion: %s ";
-TITAN_POINTS_LABEL_VALOR_SHORT = "SC: %s ";
+TITAN_POINTS_LABEL_VALOR = "Points de vaillance: %s ";
+TITAN_POINTS_LABEL_VALOR_SHORT = "PV: %s ";
 TITAN_POINTS_LABEL_JUSTICE = "Points de justice: %s ";
 TITAN_POINTS_LABEL_JUSTICE_SHORT = "PJ: %s ";
 TITAN_POINTS_LABEL_CONQUEST = "Points de conquête: %s ";
@@ -69,7 +69,7 @@ TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
 --TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
 --TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 
-TITAN_POINTS_VALOR = "Sceau de champion";
+TITAN_POINTS_VALOR = "Points de vaillance";
 TITAN_POINTS_JUSTICE = "Points de justice";
 TITAN_POINTS_CONQUEST = "Points de conquête";
 TITAN_POINTS_HONOR = "Points d'honneur";

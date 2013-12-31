@@ -1,4 +1,4 @@
-## Interface: 50100
+## Interface: 50400
 ## Title: Titan Panel [|cffeda55fPoints|r] |cff00aa005.1r6|r
 ## Notes: A simple Currency Point list for the Titan Panel AddOn.
 ## Author: solocommand

@@ -7,18 +7,17 @@ TITAN_POINTS_MENU_HIDE = "Hide";
 TITAN_POINTS_MENU_HKS = "Honor Kills";
 TITAN_POINTS_MENU_HONOR = "Honor Points";
 TITAN_POINTS_MENU_ICONS = "Show Point Icons";
-TITAN_POINTS_MENU_JUSTICE = "Justice Points";
 TITAN_POINTS_MENU_TIMELESS = "Timeless Coins";
 TITAN_POINTS_MENU_LABELS = "Show Point Labels";
 TITAN_POINTS_MENU_MEM = "Show Memory Usage";
 TITAN_POINTS_MENU_SHORT_LABELS = "Use Short Labels";
 TITAN_POINTS_MENU_TEXT = "TitanPoints";
-TITAN_POINTS_MENU_VALOR = "Valor Points";
+TITAN_POINTS_MENU_GARRISON = "Garrison Resources";
 
 TITAN_POINTS_BUTTON_LABEL = "Points: ";
 
-TITAN_POINTS_LABEL_VALOR = "Valor Points: %s ";
-TITAN_POINTS_LABEL_VALOR_SHORT = "VP: %s ";
+TITAN_POINTS_LABEL_GARRISON = "Garrison Resources: %s ";
+TITAN_POINTS_LABEL_GARRISON_SHORT = "GR: %s ";
 TITAN_POINTS_LABEL_JUSTICE = "Justice Points: %s ";
 TITAN_POINTS_LABEL_JUSTICE_SHORT = "JP: %s ";
 TITAN_POINTS_LABEL_TIMELESS = "Timeless Coins: %s ";
@@ -31,8 +30,7 @@ TITAN_POINTS_LABEL_HKS = "Honor Kills: %s ";
 TITAN_POINTS_LABEL_HKS_SHORT = "HKs: %s ";
 TITAN_POINTS_LABEL_SPACER = " %s ";
 
-TITAN_POINTS_VALOR = "Valor Points";
-TITAN_POINTS_JUSTICE = "Justice Points";
+TITAN_POINTS_GARRISON = "Garrison Resources";
 TITAN_POINTS_TIMELESS = "Timeless Coin";
 TITAN_POINTS_CONQUEST = "Conquest Points";
 TITAN_POINTS_HONOR = "Honor Points";
@@ -46,42 +44,43 @@ TITAN_POINTS_TOOLTIP_MEM_UNIT = "Kb";
 
 if (GetLocale() == "frFR") then
 
--- Last Update by Sasmira: 12/20/2010
+	-- Last Update by Sasmira: 12/20/2010
 
-TITAN_POINTS_MENU_CONQUEST = "Points de conquête";
-TITAN_POINTS_MENU_HIDE = "Cacher";
-TITAN_POINTS_MENU_HKS = "Victoires Honorables";
-TITAN_POINTS_MENU_HONOR = "Points d'honneur";
-TITAN_POINTS_MENU_ICONS = "Afficher l'icône";
-TITAN_POINTS_MENU_JUSTICE = "Points de justice";
-TITAN_POINTS_MENU_LABELS = "Afficher les noms";
-TITAN_POINTS_MENU_MEM = "Consommation de mémoire";
-TITAN_POINTS_MENU_SHORT_LABELS = "Utiliser les noms courts";
-TITAN_POINTS_MENU_TEXT = "TitanPoints";
-TITAN_POINTS_MENU_VALOR = "Points de vaillance";
+	TITAN_POINTS_MENU_CONQUEST = "Points de conquête";
+	TITAN_POINTS_MENU_HIDE = "Cacher";
+	TITAN_POINTS_MENU_HKS = "Victoires Honorables";
+	TITAN_POINTS_MENU_HONOR = "Points d'honneur";
+	TITAN_POINTS_MENU_ICONS = "Afficher l'icône";
+	TITAN_POINTS_MENU_JUSTICE = "Points de justice";
+	TITAN_POINTS_MENU_LABELS = "Afficher les noms";
+	TITAN_POINTS_MENU_MEM = "Consommation de mémoire";
+	TITAN_POINTS_MENU_SHORT_LABELS = "Utiliser les noms courts";
+	TITAN_POINTS_MENU_TEXT = "TitanPoints";
+	TITAN_POINTS_MENU_VALOR = "Points de vaillance";
+	TITAN_POINTS_MENU_GARRISON = "Garrison Resources";
 
-TITAN_POINTS_BUTTON_LABEL = "Points: ";
+	TITAN_POINTS_BUTTON_LABEL = "Points: ";
 
-TITAN_POINTS_LABEL_VALOR = "Points de vaillance: %s ";
-TITAN_POINTS_LABEL_VALOR_SHORT = "PV: %s ";
-TITAN_POINTS_LABEL_JUSTICE = "Points de justice: %s ";
-TITAN_POINTS_LABEL_JUSTICE_SHORT = "PJ: %s ";
-TITAN_POINTS_LABEL_CONQUEST = "Points de conquête: %s ";
-TITAN_POINTS_LABEL_CONQUEST_SHORT = "PC: %s ";
-TITAN_POINTS_LABEL_HONOR = "Points d'honneur: %s ";
-TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
-TITAN_POINTS_LABEL_HKS = "Victoires Honorables: %s ";
-TITAN_POINTS_LABEL_HKS_SHORT = "VH: %s ";
+	TITAN_POINTS_LABEL_VALOR = "Points de vaillance: %s ";
+	TITAN_POINTS_LABEL_VALOR_SHORT = "PV: %s ";
+	TITAN_POINTS_LABEL_JUSTICE = "Points de justice: %s ";
+	TITAN_POINTS_LABEL_JUSTICE_SHORT = "PJ: %s ";
+	TITAN_POINTS_LABEL_CONQUEST = "Points de conquête: %s ";
+	TITAN_POINTS_LABEL_CONQUEST_SHORT = "PC: %s ";
+	TITAN_POINTS_LABEL_HONOR = "Points d'honneur: %s ";
+	TITAN_POINTS_LABEL_HONOR_SHORT = "PH: %s ";
+	TITAN_POINTS_LABEL_HKS = "Victoires Honorables: %s ";
+	TITAN_POINTS_LABEL_HKS_SHORT = "VH: %s ";
 
-TITAN_POINTS_VALOR = "Points de vaillance";
-TITAN_POINTS_JUSTICE = "Points de justice";
-TITAN_POINTS_CONQUEST = "Points de conquête";
-TITAN_POINTS_HONOR = "Points d'honneur";
-TITAN_POINTS_HKS = "Victoires Honorables";
+	TITAN_POINTS_VALOR = "Points de vaillance";
+	TITAN_POINTS_JUSTICE = "Points de justice";
+	TITAN_POINTS_CONQUEST = "Points de conquête";
+	TITAN_POINTS_HONOR = "Points d'honneur";
+	TITAN_POINTS_HKS = "Victoires Honorables";
 
-TITAN_POINTS_TOOLTIP = "Monnaies";
-TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
-TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
+	TITAN_POINTS_TOOLTIP = "Monnaies";
+	TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
+	TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
 	
 end
 
@@ -103,6 +102,7 @@ if (GetLocale() == "deDE") then
 	--TITAN_POINTS_MENU_SHORT_LABELS = "Use Short Labels";
 	TITAN_POINTS_MENU_TEXT = "TitanPoints";
 	TITAN_POINTS_MENU_VALOR = "Zeige Tapferkeitspunkte";
+	TITAN_POINTS_MENU_GARRISON = "Garrison Resources";
 
 	TITAN_POINTS_BUTTON_LABEL = "Punkte: ";
 
@@ -146,6 +146,7 @@ if (GetLocale() == "esES") then
 	TITAN_POINTS_MENU_SHORT_LABELS = "Mostrar pequeño etiqueta";
 	TITAN_POINTS_MENU_TEXT = "TitanPoints";
 	TITAN_POINTS_MENU_VALOR = "Mostrar puntos de valor";
+	TITAN_POINTS_MENU_GARRISON = "Garrison Resources";
 
 	TITAN_POINTS_BUTTON_LABEL = "Puntos: ";
 

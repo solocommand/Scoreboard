@@ -6,7 +6,7 @@
 
 local bDebugMode = false;
 TITAN_POINTS_ID = "Points";
-TITAN_POINTS_VERSION = "6.0r9";
+TITAN_POINTS_VERSION = "6.0r10";
 TITAN_NIL = false;
 TITAN_POINTS_TAB = "TokenFrame";	-- Currency Tab
 

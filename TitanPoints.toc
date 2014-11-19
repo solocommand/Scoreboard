@@ -6,5 +6,5 @@
 ## SavedVariables:
 ## OptionalDeps:
 ## Dependencies: Titan
-## Version: 6.0r9
+## Version: 6.0r10
 TitanPoints.xml

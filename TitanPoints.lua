@@ -35,7 +35,8 @@ function TitanPanelPointsButton_OnLoad(self)
 			--ShowRegularText = false,
 			--ShowColoredText = true,
 		},
-		savedVariables = {       
+		savedVariables = { 
+			ShowSoTF = 1,      
 			ShowApexis = 1,
 			ShowGarrison = 1,
 			ShowTimeless = 1,
@@ -101,6 +102,7 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
   
     local info = {};  
     TitanPanelRightClickMenu_AddTitle(TitanPlugins[TITAN_POINTS_ID].menuText);
+    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SOTF, TITAN_POINTS_ID, "ShowSoTF");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_APEXIS, TITAN_POINTS_ID, "ShowApexis");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_GARRISON, TITAN_POINTS_ID, "ShowGarrison");
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_TIMELESS, TITAN_POINTS_ID, "ShowTimeless");
@@ -159,6 +161,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
 		if(shortLabels ~= nil) then
 			if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
 				label = TITAN_POINTS_LABEL_GARRISON_SHORT;
+			elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
+				label = TITAN_POINTS_LABEL_SOTF_SHORT;
 			elseif(CurrencyType==TITAN_POINTS_APEXIS) and TitanGetVar(TITAN_POINTS_ID,"ShowApexis") then
 				label = TITAN_POINTS_LABEL_APEXIS_SHORT;
 			elseif(CurrencyType==TITAN_POINTS_TIMELESS) and TitanGetVar(TITAN_POINTS_ID,"ShowTimeless") then
@@ -175,6 +179,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
 		else
 			if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
 				label = TITAN_POINTS_LABEL_GARRISON;
+			elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
+				label = TITAN_POINTS_LABEL_SOTF;
 			elseif(CurrencyType==TITAN_POINTS_APEXIS) and TitanGetVar(TITAN_POINTS_ID,"ShowApexis") then
 				label = TITAN_POINTS_LABEL_APEXIS;
 			elseif(CurrencyType==TITAN_POINTS_TIMELESS) and TitanGetVar(TITAN_POINTS_ID,"ShowTimeless") then
@@ -220,15 +226,21 @@ function TitanPanelPointsButton_GetButtonText(id)
 		for CurrencyIndex=1, TITAN_POINTS_LIST_SIZE do
 			
 			-- Get Currency Info
-			-- name, isHeader, isExpanded, isUnused, isWatched, count, extraCurrencyType, icon, itemID = GetCurrencyListInfo(CurrencyIndex)
 			name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown= GetCurrencyListInfo(CurrencyIndex)
-			-- Valor Points
+
+			-- Garrison Resources
 			if (name==TITAN_POINTS_GARRISON) and (TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") ~= nil) then
 				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_GARRISON, icon); end
 				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_GARRISON), TitanUtils_GetHighlightText(count));
 			end
 
-			-- Valor Points
+			-- Seals of Tempered Fate
+			if (name==TITAN_POINTS_SOTF) and (TitanGetVar(TITAN_POINTS_ID,"ShowSoTF") ~= nil) then
+				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_SOTF, icon); end
+				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_SOTF), TitanUtils_GetHighlightText(count));
+			end
+
+			-- Apexis Crystals
 			if (name==TITAN_POINTS_APEXIS) and (TitanGetVar(TITAN_POINTS_ID,"ShowApexis") ~= nil) then
 				if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_APEXIS, icon); end
 				buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_APEXIS), TitanUtils_GetHighlightText(count));

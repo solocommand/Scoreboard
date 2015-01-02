@@ -2,10 +2,10 @@
 
 -- default (EN)
 
-TITAN_POINTS_SEAL_OF_TEMPERED_FATE = "Seal of Tempered Fate";
-TITAN_POINTS_MENU_SEAL_OF_TEMPERED_FATE = "Seal of Tempered Fate";
-TITAN_POINTS_LABEL_SEAL_OF_TEMPERED_FATE = "Seals of Tempered Fate: %s";
-TITAN_POINTS_LABEL_SEAL_OF_TEMPERED_FATE_SHORT = "STF: %s";
+TITAN_POINTS_SOTF = "Seal of Tempered Fate";
+TITAN_POINTS_MENU_SOTF = "Seal of Tempered Fate";
+TITAN_POINTS_LABEL_SOTF = "Seals of Tempered Fate: %s";
+TITAN_POINTS_LABEL_SOTF_SHORT = "STF: %s";
 
 TITAN_POINTS_MENU_CONQUEST = "Conquest Points";
 TITAN_POINTS_MENU_HIDE = "Hide";

@@ -197,5 +197,49 @@ end
 -- ruRU
 
 if (GetLocale() == "ruRU") then
-    
+	TITAN_POINTS_MENU_CONQUEST = "Очки завоевания";
+	TITAN_POINTS_MENU_HIDE = "Скрыть";
+	TITAN_POINTS_MENU_HKS = "Почетные победы";
+	TITAN_POINTS_MENU_HONOR = "Очки чести";
+	TITAN_POINTS_MENU_ICONS = "Показывать значки";
+	TITAN_POINTS_MENU_TIMELESS = "Вневременные монеты";
+	TITAN_POINTS_MENU_LABELS = "Показывать названия";
+	TITAN_POINTS_MENU_MEM = "Показывать использование памяти";
+	TITAN_POINTS_MENU_SHORT_LABELS = "Сокращения";
+	TITAN_POINTS_MENU_TEXT = "TitanPoints";
+	TITAN_POINTS_MENU_APEXIS = "Апекситовые кристаллы";
+	TITAN_POINTS_MENU_FATE = "Печать закаленной судьбы";
+	TITAN_POINTS_MENU_GARRISON = "Ресурсы гарнизона";
+
+	TITAN_POINTS_BUTTON_LABEL = "Валюта: ";
+
+	TITAN_POINTS_LABEL_APEXIS = "Апекситовый кристалл: %s ";
+	TITAN_POINTS_LABEL_APEXIS_SHORT = "АК: %s ";
+	TITAN_POINTS_LABEL_FATE = "Печать закаленной судьбы: %s ";
+	TITAN_POINTS_LABEL_FATE_SHORT = "ПЗС: %s ";
+	TITAN_POINTS_LABEL_GARRISON = "Ресурсы гарнизона: %s ";
+	TITAN_POINTS_LABEL_GARRISON_SHORT = "РГ: %s ";
+	TITAN_POINTS_LABEL_JUSTICE = "Очки справедливости: %s ";
+	TITAN_POINTS_LABEL_JUSTICE_SHORT = "ОС: %s ";
+	TITAN_POINTS_LABEL_TIMELESS = "Вневременные монеты: %s ";
+	TITAN_POINTS_LABEL_TIMELESS_SHORT = "ВМ: %s ";
+	TITAN_POINTS_LABEL_CONQUEST = "Очки завоевания: %s ";
+	TITAN_POINTS_LABEL_CONQUEST_SHORT = "CP: %s ";
+	TITAN_POINTS_LABEL_HONOR = "Очки чести: %s ";
+	TITAN_POINTS_LABEL_HONOR_SHORT = "ОЧ: %s ";
+	TITAN_POINTS_LABEL_HKS = "Почетные победы: %s ";
+	TITAN_POINTS_LABEL_HKS_SHORT = "ПП: %s ";
+	TITAN_POINTS_LABEL_SPACER = " %s ";
+
+	TITAN_POINTS_APEXIS = "Апекситовый кристалл";
+	TITAN_POINTS_FATE = "Печать закаленной судьбы";
+	TITAN_POINTS_GARRISON = "Ресурсы гарнизона";
+	TITAN_POINTS_TIMELESS = "Вневременная монета";
+	TITAN_POINTS_CONQUEST = "Очки завоевания";
+	TITAN_POINTS_HONOR = "Очки чести";
+	TITAN_POINTS_HKS = "Почетные победы";
+
+	TITAN_POINTS_TOOLTIP = "Валюта";
+	TITAN_POINTS_TOOLTIP_MEM = "Использование памяти:";
+	TITAN_POINTS_TOOLTIP_MEM_UNIT = "Кб";
 end

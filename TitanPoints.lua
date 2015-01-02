@@ -117,7 +117,7 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ICONS, TITAN_POINTS_ID, "ShowIcons");
 	TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_MEM, TITAN_POINTS_ID, "ShowMem");
     TitanPanelRightClickMenu_AddSpacer();
-    TitanPanelRightClickMenu_AddCommand("Hide", TITAN_POINTS_ID, TITAN_PANEL_MENU_FUNC_HIDE);
+    TitanPanelRightClickMenu_AddCommand(TITAN_POINTS_MENU_HIDE, TITAN_POINTS_ID, TITAN_PANEL_MENU_FUNC_HIDE);
   
 end
 

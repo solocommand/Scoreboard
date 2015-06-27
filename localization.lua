@@ -7,6 +7,26 @@ TITAN_POINTS_MENU_SOTF = "Seal of Tempered Fate";
 TITAN_POINTS_LABEL_SOTF = "Seals of Tempered Fate: %s";
 TITAN_POINTS_LABEL_SOTF_SHORT = "STF: %s";
 
+TITAN_POINTS_SOIF = "Seal of Inevitable Fate";
+TITAN_POINTS_MENU_SOIF = "Seal of Inevitable Fate";
+TITAN_POINTS_LABEL_SOIF = "Seals of Inevitable Fate: %s";
+TITAN_POINTS_LABEL_SOIF_SHORT = "SIF: %s";
+
+TITAN_POINTS_ARTIFACT = "Artifact Fragment";
+TITAN_POINTS_MENU_ARTIFACT = "Artifact Fragment";
+TITAN_POINTS_LABEL_ARTIFACT = "Artifact Fragments: %s";
+TITAN_POINTS_LABEL_ARTIFACT_SHORT = "AF: %s";
+
+TITAN_POINTS_DIC = "Dingy Iron Coin";
+TITAN_POINTS_MENU_DIC = "Dingy Iron Coin";
+TITAN_POINTS_LABEL_DIC = "Dingy Iron Coins: %s";
+TITAN_POINTS_LABEL_DIC_SHORT = "DIC: %s";
+
+TITAN_POINTS_OIL = "Oil";
+TITAN_POINTS_MENU_OIL = "Oil";
+TITAN_POINTS_LABEL_OIL = "Oil: %s";
+TITAN_POINTS_LABEL_OIL_SHORT = "OIL: %s";
+
 TITAN_POINTS_MENU_CONQUEST = "Conquest Points";
 TITAN_POINTS_MENU_HIDE = "Hide";
 TITAN_POINTS_MENU_HKS = "Honor Kills";
@@ -68,7 +88,7 @@ if (GetLocale() == "frFR") then
     TITAN_POINTS_MENU_VALOR = "Points de vaillance";
     TITAN_POINTS_MENU_TIMELESS = "Sceaux du destin trempé";
     TITAN_POINTS_MENU_APEXIS = "Cristaux apogides";
-    TITAN_POINTS_MENU_GARRISON = "Ressources de fief"; 
+    TITAN_POINTS_MENU_GARRISON = "Ressources de fief";
 
     TITAN_POINTS_BUTTON_LABEL = "Points: ";
 
@@ -91,7 +111,7 @@ if (GetLocale() == "frFR") then
 
     TITAN_POINTS_APEXIS = "Cristal apogide";
     TITAN_POINTS_GARRISON = "Ressources de fief";
-    TITAN_POINTS_TIMELESS = "Sceau du destin trempé"; 
+    TITAN_POINTS_TIMELESS = "Sceau du destin trempé";
     TITAN_POINTS_VALOR = "Points de vaillance";
     TITAN_POINTS_JUSTICE = "Points de justice";
     TITAN_POINTS_CONQUEST = "Points de conquête";
@@ -101,7 +121,7 @@ if (GetLocale() == "frFR") then
     TITAN_POINTS_TOOLTIP = "Monnaies";
     TITAN_POINTS_TOOLTIP_MEM = "Mémoire utilis\195\169e:";
     TITAN_POINTS_TOOLTIP_MEM_UNIT = "Ko";
-    
+
 end
 
 
@@ -123,10 +143,10 @@ if (GetLocale() == "deDE") then
     TITAN_POINTS_MENU_APEXIS = "Zeige Apexiskristalle";
     TITAN_POINTS_MENU_GARRISON = "Zeige Garnisonsressourcen";
     TITAN_POINTS_MENU_TIMELESS = "Zeige Zeitlose Münzen";
-    
+
     TITAN_POINTS_BUTTON_LABEL = "Punkte: ";
 
-    
+
     TITAN_POINTS_LABEL_APEXIS = "Apexiskristalle: %s ";
     TITAN_POINTS_LABEL_APEXIS_SHORT = "AK: %s ";
     TITAN_POINTS_LABEL_GARRISON = "Garnisonsressourcen: %s ";
@@ -149,8 +169,8 @@ if (GetLocale() == "deDE") then
 
     TITAN_POINTS_TOOLTIP = "Währungen Punkte";
     TITAN_POINTS_TOOLTIP_MEM = "Speicher Verbrauch:";
-    TITAN_POINTS_TOOLTIP_MEM_UNIT = "KB"; 
-    
+    TITAN_POINTS_TOOLTIP_MEM_UNIT = "KB";
+
 end
 
 -- esES
@@ -191,7 +211,7 @@ if (GetLocale() == "esES") then
     TITAN_POINTS_TOOLTIP = "Puntos de Monedas";
     TITAN_POINTS_TOOLTIP_MEM = "Uso de Memoria:";
     TITAN_POINTS_TOOLTIP_MEM_UNIT = "KB";
-    
+
 end
 
 -- ruRU

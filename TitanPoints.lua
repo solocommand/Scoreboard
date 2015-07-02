@@ -299,7 +299,7 @@ function TitanPanelPointsButton_GetButtonText(id)
             end
 
             -- Oil
-            if (name==TITAN_POINTS_OIL) and (TitanGetVar(TITAN_POINTS_ID,"ShowApexis") ~= nil) then
+            if (name==TITAN_POINTS_OIL) and (TitanGetVar(TITAN_POINTS_ID,"ShowOil") ~= nil) then
                 if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_OIL, icon); end
                 buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_OIL), TitanUtils_GetHighlightText(count));
             end

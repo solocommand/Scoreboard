@@ -130,6 +130,30 @@ end
 if (GetLocale() == "deDE") then
 
     -- Last Update by solocommand: 10/30/2010
+	TITAN_POINTS_SOTF = "Siegel des geschmiedeten Schicksals";
+	TITAN_POINTS_MENU_SOTF = "Siegel des geschmiedeten Schicksals";
+	TITAN_POINTS_LABEL_SOTF = "Siegel des geschmiedeten Schicksals: %s";
+	TITAN_POINTS_LABEL_SOTF_SHORT = "SGS: %s";
+
+	TITAN_POINTS_SOIF = "Siegel des unausweichlichen Schicksals";
+	TITAN_POINTS_MENU_SOIF = "Siegel des unausweichlichen Schicksals";
+	TITAN_POINTS_LABEL_SOIF = "Siegel des unausweichlichen Schicksals: %s";
+	TITAN_POINTS_LABEL_SOIF_SHORT = "SUS: %s";
+
+	TITAN_POINTS_ARTIFACT = "Artefaktfragment";
+	TITAN_POINTS_MENU_ARTIFACT = "Artefaktfragment";
+	TITAN_POINTS_LABEL_ARTIFACT = "Artefaktfragment: %s";
+	TITAN_POINTS_LABEL_ARTIFACT_SHORT = "AF: %s";
+
+	TITAN_POINTS_DIC = "Schäbige Eisenmünzen";
+	TITAN_POINTS_MENU_DIC = "Schäbige Eisenmünzen";
+	TITAN_POINTS_LABEL_DIC = "Schäbige Eisenmünzen: %s";
+	TITAN_POINTS_LABEL_DIC_SHORT = "SEM: %s";
+
+	TITAN_POINTS_OIL = "Öl";
+	TITAN_POINTS_MENU_OIL = "Öl";
+	TITAN_POINTS_LABEL_OIL = "Öl: %s";
+	TITAN_POINTS_LABEL_OIL_SHORT = "ÖL: %s";
 
     TITAN_POINTS_MENU_CONQUEST = "Zeige Eroberungspunkte";
     TITAN_POINTS_MENU_HIDE = "Ausblenden";
@@ -146,19 +170,21 @@ if (GetLocale() == "deDE") then
 
     TITAN_POINTS_BUTTON_LABEL = "Punkte: ";
 
-
     TITAN_POINTS_LABEL_APEXIS = "Apexiskristalle: %s ";
     TITAN_POINTS_LABEL_APEXIS_SHORT = "AK: %s ";
     TITAN_POINTS_LABEL_GARRISON = "Garnisonsressourcen: %s ";
     TITAN_POINTS_LABEL_GARRISON_SHORT = "GR: %s ";
+    TITAN_POINTS_LABEL_JUSTICE = "Gerechtigkeitspunkte: %s ";
+    TITAN_POINTS_LABEL_JUSTICE_SHORT = "GP: %s ";
+    TITAN_POINTS_LABEL_TIMELESS = "Zeitlose Münzen: %s ";
+    TITAN_POINTS_LABEL_TIMELESS_SHORT = "ZM: %s ";
     TITAN_POINTS_LABEL_CONQUEST = "Eroberungspunkte: %s ";
     TITAN_POINTS_LABEL_CONQUEST_SHORT = "ErP: %s ";
     TITAN_POINTS_LABEL_HONOR = "Ehrenpunkte: %s ";
     TITAN_POINTS_LABEL_HONOR_SHORT = "EhP: %s ";
     TITAN_POINTS_LABEL_HKS = "Ehrenhafte Siege: %s ";
     TITAN_POINTS_LABEL_HKS_SHORT = "ES: %s ";
-    TITAN_POINTS_LABEL_TIMELESS = "Zeitlose Münzen: %s ";
-    TITAN_POINTS_LABEL_TIMELESS_SHORT = "ZM: %s ";
+    TITAN_POINTS_LABEL_SPACER = " %s ";
 
     TITAN_POINTS_APEXIS = "Apexiskristall";
     TITAN_POINTS_GARRISON = "Garnisonsressourcen";

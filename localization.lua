@@ -1,31 +1,31 @@
-﻿local L = LibStub("AceLocale-3.0"):GetLocale("Titan", true)
+local L = LibStub("AceLocale-3.0"):GetLocale("Titan", true)
 
 -- default (EN)
 
 TITAN_POINTS_SOTF = "Seal of Tempered Fate";
 TITAN_POINTS_MENU_SOTF = "Seal of Tempered Fate";
-TITAN_POINTS_LABEL_SOTF = "Seals of Tempered Fate: %s";
-TITAN_POINTS_LABEL_SOTF_SHORT = "STF: %s";
+TITAN_POINTS_LABEL_SOTF = "Seals of Tempered Fate: %s ";
+TITAN_POINTS_LABEL_SOTF_SHORT = "STF: %s ";
 
 TITAN_POINTS_SOIF = "Seal of Inevitable Fate";
 TITAN_POINTS_MENU_SOIF = "Seal of Inevitable Fate";
-TITAN_POINTS_LABEL_SOIF = "Seals of Inevitable Fate: %s";
-TITAN_POINTS_LABEL_SOIF_SHORT = "SIF: %s";
+TITAN_POINTS_LABEL_SOIF = "Seals of Inevitable Fate: %s ";
+TITAN_POINTS_LABEL_SOIF_SHORT = "SIF: %s ";
 
 TITAN_POINTS_ARTIFACT = "Artifact Fragment";
 TITAN_POINTS_MENU_ARTIFACT = "Artifact Fragment";
-TITAN_POINTS_LABEL_ARTIFACT = "Artifact Fragments: %s";
-TITAN_POINTS_LABEL_ARTIFACT_SHORT = "AF: %s";
+TITAN_POINTS_LABEL_ARTIFACT = "Artifact Fragments: %s ";
+TITAN_POINTS_LABEL_ARTIFACT_SHORT = "AF: %s ";
 
 TITAN_POINTS_DIC = "Dingy Iron Coin";
 TITAN_POINTS_MENU_DIC = "Dingy Iron Coin";
-TITAN_POINTS_LABEL_DIC = "Dingy Iron Coins: %s";
-TITAN_POINTS_LABEL_DIC_SHORT = "DIC: %s";
+TITAN_POINTS_LABEL_DIC = "Dingy Iron Coins: %s ";
+TITAN_POINTS_LABEL_DIC_SHORT = "DIC: %s ";
 
 TITAN_POINTS_OIL = "Oil";
 TITAN_POINTS_MENU_OIL = "Oil";
-TITAN_POINTS_LABEL_OIL = "Oil: %s";
-TITAN_POINTS_LABEL_OIL_SHORT = "OIL: %s";
+TITAN_POINTS_LABEL_OIL = "Oil: %s ";
+TITAN_POINTS_LABEL_OIL_SHORT = "OIL: %s ";
 
 TITAN_POINTS_VALOR = "Valor";
 TITAN_POINTS_MENU_VALOR = "Valor";

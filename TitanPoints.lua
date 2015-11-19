@@ -6,7 +6,7 @@
 
 local bDebugMode = false;
 TITAN_POINTS_ID = "Points";
-TITAN_POINTS_VERSION = "6.2r14";
+TITAN_POINTS_VERSION = "6.2r15";
 TITAN_NIL = false;
 TITAN_POINTS_TAB = "TokenFrame";    -- Currency Tab
 
@@ -39,6 +39,7 @@ function TitanPanelPointsButton_OnLoad(self)
             ShowSoTF = 1,
             ShowSoIF = 1,
             ShowValor = 1,
+            ShowTimewarped = 1,
             ShowArtifact = 1,
             ShowDIC = 1,
             ShowOil = 1,
@@ -108,6 +109,7 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
     local info = {};
     TitanPanelRightClickMenu_AddTitle('Warlords of Draenor');
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_VALOR, TITAN_POINTS_ID, "ShowValor");
+    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_TIMEWARPED, TITAN_POINTS_ID, "ShowTimewarped");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_APEXIS, TITAN_POINTS_ID, "ShowApexis");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ARTIFACT, TITAN_POINTS_ID, "ShowArtifact");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_DIC, TITAN_POINTS_ID, "ShowDIC");
@@ -181,6 +183,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
         if(shortLabels ~= nil) then
             if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
                 label = TITAN_POINTS_LABEL_GARRISON_SHORT;
+            elseif(CurrencyType==TITAN_POINTS_TIMEWARPED) and TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") then
+                label = TITAN_POINTS_LABEL_TIMEWARPED_SHORT;
             elseif(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
                 label = TITAN_POINTS_LABEL_VALOR_SHORT;
             elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
@@ -209,6 +213,8 @@ function TitanPanelPoints_GetLabel(CurrencyType)
         else
             if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
                 label = TITAN_POINTS_LABEL_GARRISON;
+            elseif(CurrencyType==TITAN_POINTS_TIMEWARPED) and TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") then
+                label = TITAN_POINTS_LABEL_TIMEWARPED;
             elseif(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
                 label = TITAN_POINTS_LABEL_VALOR;
             elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
@@ -272,6 +278,12 @@ function TitanPanelPointsButton_GetButtonText(id)
             if (name==TITAN_POINTS_VALOR) and (TitanGetVar(TITAN_POINTS_ID,"ShowValor") ~= nil) then
                 if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_VALOR, icon); end
                 buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_VALOR), TitanUtils_GetHighlightText(count));
+            end
+
+            -- Timewarped Badges
+            if (name==TITAN_POINTS_TIMEWARPED) and (TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") ~= nil) then
+                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_TIMEWARPED, icon); end
+                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_TIMEWARPED), TitanUtils_GetHighlightText(count));
             end
 
             -- Garrison Resources

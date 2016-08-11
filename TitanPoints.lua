@@ -32,27 +32,16 @@ function TitanPanelPointsButton_OnLoad(self)
         controlVariables = {
             ShowIcon = true,
             DisplayOnRightSide = false
-            --ShowRegularText = false,
-            --ShowColoredText = true,
         },
         savedVariables = {
-            ShowSoTF = 1,
-            ShowSoIF = 1,
-            ShowValor = 1,
-            ShowTimewarped = 1,
-            ShowArtifact = 1,
-            ShowDIC = 1,
-            ShowOil = 1,
-            ShowApexis = 1,
-            ShowGarrison = 1,
-            ShowTimeless = 1,
-            ShowLabel = 1,
-            ShowPointLabels = 1,
+            ShowNethershard = true,
+            ShowValor = true,
+            ShowLabel = false,
+            ShowPointLabels = false,
             ShowShortLabels = false,
-            ShowIcons = false,
-            ShowIcon = 1,
-            ShowMem = false,
-            ShowHKs = false,
+            ShowIcons = true,
+            ShowIcon = false,
+            ShowHKs = true,
           }
     };
 
@@ -104,38 +93,30 @@ end
 
 function TitanPanelRightClickMenu_PreparePointsMenu()
 
-    local info = {};
-    TitanPanelRightClickMenu_AddTitle('Warlords of Draenor');
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_VALOR, TITAN_POINTS_ID, "ShowValor");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_TIMEWARPED, TITAN_POINTS_ID, "ShowTimewarped");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_APEXIS, TITAN_POINTS_ID, "ShowApexis");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ARTIFACT, TITAN_POINTS_ID, "ShowArtifact");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_DIC, TITAN_POINTS_ID, "ShowDIC");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_GARRISON, TITAN_POINTS_ID, "ShowGarrison");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_OIL, TITAN_POINTS_ID, "ShowOil");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SOTF, TITAN_POINTS_ID, "ShowSoTF");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SOIF, TITAN_POINTS_ID, "ShowSoIF");
-
-    TitanPanelRightClickMenu_AddSpacer();
-    TitanPanelRightClickMenu_AddTitle('Mists of Pandaria');
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_TIMELESS, TITAN_POINTS_ID, "ShowTimeless");
-
-    TitanPanelRightClickMenu_AddSpacer();
-    TitanPanelRightClickMenu_AddTitle('PvP/Honor');
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_HKS, TITAN_POINTS_ID, "ShowHKs");
-
-    TitanPanelRightClickMenu_AddSpacer();
     TitanPanelRightClickMenu_AddTitle(TitanPlugins[TITAN_POINTS_ID].menuText);
+    TitanPanelRightClickMenu_AddToggleIcon(TITAN_POINTS_ID);
+    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABEL, TITAN_POINTS_ID, "ShowLabel");
+    TitanPanelRightClickMenu_AddSpacer();
+    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ICONS, TITAN_POINTS_ID, "ShowIcons");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABELS, TITAN_POINTS_ID, "ShowPointLabels");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SHORT_LABELS, TITAN_POINTS_ID, "ShowShortLabels");
 
     TitanPanelRightClickMenu_AddSpacer();
-    TitanPanelRightClickMenu_AddToggleIcon(TITAN_POINTS_ID);
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ICONS, TITAN_POINTS_ID, "ShowIcons");
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_MEM, TITAN_POINTS_ID, "ShowMem");
 
-    TitanPanelRightClickMenu_AddSpacer();
-    TitanPanelRightClickMenu_AddCommand("Hide", TITAN_POINTS_ID, TITAN_PANEL_MENU_FUNC_HIDE);
+    for CurrencyIndex=1, GetCurrencyListSize() do
+        local name, isHeader, extra, extra, extra, extra, extra, extra, extra = GetCurrencyListInfo(CurrencyIndex);
+        local var = "Show"..name;
+
+        if(not isHeader) then
+            TitanPanelRightClickMenu_AddToggleVar(name, TITAN_POINTS_ID, var);
+        else
+            TitanPanelRightClickMenu_AddSpacer();
+            TitanPanelRightClickMenu_AddTitle(name);
+        end
+        if(name == "Player vs. Player") then
+            TitanPanelRightClickMenu_AddToggleVar("Honor Kills", TITAN_POINTS_ID, "ShowHKs");
+        end
+    end
 
 end
 
@@ -171,73 +152,14 @@ end
 ----------------------------------------------------------------------
 
 function TitanPanelPoints_GetLabel(CurrencyType)
-    local label = nil;
-    local showLabels = TitanGetVar(TITAN_POINTS_ID, "ShowPointLabels");
-    local shortLabels = TitanGetVar(TITAN_POINTS_ID, "ShowShortLabels");
-
-    if (showLabels ~= nil) then
-        if(shortLabels ~= nil) then
-            if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
-                label = TITAN_POINTS_LABEL_GARRISON_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_TIMEWARPED) and TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") then
-                label = TITAN_POINTS_LABEL_TIMEWARPED_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
-                label = TITAN_POINTS_LABEL_VALOR_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
-                label = TITAN_POINTS_LABEL_SOTF_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_SOIF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoIF") then
-                label = TITAN_POINTS_LABEL_SOIF_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_OIL) and TitanGetVar(TITAN_POINTS_ID, "ShowOil") then
-                label = TITAN_POINTS_LABEL_OIL_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_DIC) and TitanGetVar(TITAN_POINTS_ID, "ShowDIC") then
-                label = TITAN_POINTS_LABEL_DIC_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_ARTIFACT) and TitanGetVar(TITAN_POINTS_ID, "ShowArtifact") then
-                label = TITAN_POINTS_LABEL_ARTIFACT_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_APEXIS) and TitanGetVar(TITAN_POINTS_ID,"ShowApexis") then
-                label = TITAN_POINTS_LABEL_APEXIS_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_TIMELESS) and TitanGetVar(TITAN_POINTS_ID,"ShowTimeless") then
-                label = TITAN_POINTS_LABEL_TIMELESS_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_CONQUEST) and TitanGetVar(TITAN_POINTS_ID,"ShowConquest") then
-                label = TITAN_POINTS_LABEL_CONQUEST_SHORT;
-            elseif(CurrencyType==TITAN_POINTS_HKS) and TitanGetVar(TITAN_POINTS_ID,"ShowHKs") then
-                label = TITAN_POINTS_LABEL_HKS_SHORT;
-            else
-                label = TITAN_POINTS_LABEL_SPACER;
-            end
+    if (TitanGetVar(TITAN_POINTS_ID, "ShowPointLabels") ~= nil) then
+        if(TitanGetVar(TITAN_POINTS_ID, "ShowShortLabels") ~= nil) then
+            return gsub(CurrencyType, "[^%u]", "")..": ";
         else
-            if(CurrencyType==TITAN_POINTS_GARRISON) and TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") then
-                label = TITAN_POINTS_LABEL_GARRISON;
-            elseif(CurrencyType==TITAN_POINTS_TIMEWARPED) and TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") then
-                label = TITAN_POINTS_LABEL_TIMEWARPED;
-            elseif(CurrencyType==TITAN_POINTS_VALOR) and TitanGetVar(TITAN_POINTS_ID,"ShowValor") then
-                label = TITAN_POINTS_LABEL_VALOR;
-            elseif(CurrencyType==TITAN_POINTS_SOTF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoTF") then
-                label = TITAN_POINTS_LABEL_SOTF;
-            elseif(CurrencyType==TITAN_POINTS_SOIF) and TitanGetVar(TITAN_POINTS_ID, "ShowSoIF") then
-                label = TITAN_POINTS_LABEL_SOIF;
-            elseif(CurrencyType==TITAN_POINTS_OIL) and TitanGetVar(TITAN_POINTS_ID,"ShowOil") then
-                label = TITAN_POINTS_LABEL_OIL;
-            elseif(CurrencyType==TITAN_POINTS_DIC) and TitanGetVar(TITAN_POINTS_ID,"ShowDIC") then
-                label = TITAN_POINTS_LABEL_DIC;
-            elseif(CurrencyType==TITAN_POINTS_ARTIFACT) and TitanGetVar(TITAN_POINTS_ID,"ShowArtifact") then
-                label = TITAN_POINTS_LABEL_ARTIFACT;
-            elseif(CurrencyType==TITAN_POINTS_APEXIS) and TitanGetVar(TITAN_POINTS_ID,"ShowApexis") then
-                label = TITAN_POINTS_LABEL_APEXIS;
-            elseif(CurrencyType==TITAN_POINTS_TIMELESS) and TitanGetVar(TITAN_POINTS_ID,"ShowTimeless") then
-                label = TITAN_POINTS_LABEL_TIMELESS;
-            elseif(CurrencyType==TITAN_POINTS_CONQUEST) and TitanGetVar(TITAN_POINTS_ID,"ShowConquest") then
-                label = TITAN_POINTS_LABEL_CONQUEST;
-            elseif(CurrencyType==TITAN_POINTS_HKS) and TitanGetVar(TITAN_POINTS_ID,"ShowHKs") then
-                label = TITAN_POINTS_LABEL_HKS;
-            else
-                label = TITAN_POINTS_LABEL_SPACER;
-            end
+            return CurrencyType..": ";
         end
-    else
-        label = TITAN_POINTS_LABEL_SPACER;
     end
-
-    return label;
+    return "";
 end
 
 ----------------------------------------------------------------------
@@ -246,100 +168,36 @@ end
 
 function TitanPanelPointsButton_GetButtonText(id)
     local id = TitanUtils_GetButton(id);
-    local TITAN_POINTS_LIST_SIZE = GetCurrencyListSize();
-    local TITAN_POINTS_LIST_INFO = nil;
     local buttonRichText = "";
-    local TITAN_POINTS_LABEL_SIZE = 0;
+    local label = "";
 
-    -- Label
-    if (not TitanGetVar(TITAN_POINTS_ID,"ShowLabel") ~= nil) then
-        TITAN_POINTS_BUTTON_LABEL = "";
+    if (TitanGetVar(TITAN_POINTS_ID,"ShowLabel") ~= nil) then
+        label = TITAN_POINTS_BUTTON_LABEL;
     end
 
-    -- GetCurrencyListInfo - Returns information about a currency type (or headers in the Currency UI)
-    -- GetCurrencyListSize - Returns the number of list entries to show in the Currency UI
+    for CurrencyIndex=1, GetCurrencyListSize() do
+        local name, isHeader, nothing, nothing, nothing, count, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex)
+        local toggle = "Show"..name
 
-    if (TITAN_POINTS_LIST_SIZE > 0) then
-
-        for CurrencyIndex=1, TITAN_POINTS_LIST_SIZE do
-
-            -- Get Currency Info
-            local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown= GetCurrencyListInfo(CurrencyIndex)
-
-            -- Valor
-            if (name==TITAN_POINTS_VALOR) and (TitanGetVar(TITAN_POINTS_ID,"ShowValor") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_VALOR, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_VALOR), TitanUtils_GetHighlightText(count));
+        if (not isHeader) then
+            if (TitanGetVar(TITAN_POINTS_ID, toggle) ~= nil) then
+                if (TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
+                    buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(name, icon)
+                end
+                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(name)..TitanUtils_GetHighlightText(count).." ");
             end
-
-            -- Timewarped Badges
-            if (name==TITAN_POINTS_TIMEWARPED) and (TitanGetVar(TITAN_POINTS_ID,"ShowTimewarped") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_TIMEWARPED, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_TIMEWARPED), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Garrison Resources
-            if (name==TITAN_POINTS_GARRISON) and (TitanGetVar(TITAN_POINTS_ID,"ShowGarrison") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_GARRISON, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_GARRISON), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Seals of Tempered Fate
-            if (name==TITAN_POINTS_SOTF) and (TitanGetVar(TITAN_POINTS_ID,"ShowSoTF") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_SOTF, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_SOTF), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Apexis Crystals
-            if (name==TITAN_POINTS_APEXIS) and (TitanGetVar(TITAN_POINTS_ID,"ShowApexis") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_APEXIS, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_APEXIS), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Artifact Fragments
-            if (name==TITAN_POINTS_ARTIFACT) and (TitanGetVar(TITAN_POINTS_ID,"ShowArtifact") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_ARTIFACT, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_ARTIFACT), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Seals of Inevitable Fate
-            if (name==TITAN_POINTS_SOIF) and (TitanGetVar(TITAN_POINTS_ID,"ShowSoIF") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_SOIF, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_SOIF), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Dingy Iron Coins
-            if (name==TITAN_POINTS_DIC) and (TitanGetVar(TITAN_POINTS_ID,"ShowDIC") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_DIC, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_DIC), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Oil
-            if (name==TITAN_POINTS_OIL) and (TitanGetVar(TITAN_POINTS_ID,"ShowOil") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_OIL, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_OIL), TitanUtils_GetHighlightText(count));
-            end
-
-            -- Timeless Coins
-            if (name==TITAN_POINTS_TIMELESS) and (TitanGetVar(TITAN_POINTS_ID,"ShowTimeless") ~= nil) then
-                if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_TIMELESS, icon); end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_TIMELESS), TitanUtils_GetHighlightText(count));
-            end
-
         end
-
     end
 
     if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
-        -- Get Honor Kills
         local HKs, null = GetPVPLifetimeStats()
-        if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_HKS); end
-        buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
-
+        if(TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
+            buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(TITAN_POINTS_HKS);
+        end
+        buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS)..TitanUtils_GetHighlightText(HKs).." ");
     end
 
-    -- return button text
-    return TITAN_POINTS_BUTTON_LABEL, buttonRichText;
+    return label..buttonRichText;
 
 end
 
@@ -353,11 +211,7 @@ function TitanPanelPointsButton_GetTooltipText()
 
     local id = TitanUtils_GetButton(id);
     local TITAN_POINTS_LIST_SIZE = GetCurrencyListSize();
-    local TITAN_POINTS_LIST_INFO = nil;
     local tooltipRichText = "";
-
-    -- GetCurrencyListInfo - Returns information about a currency type (or headers in the Currency UI)
-    -- GetCurrencyListSize - Returns the number of list entries to show in the Currency UI
 
     if (TITAN_POINTS_LIST_SIZE > 0) then
 
@@ -370,24 +224,16 @@ function TitanPanelPointsButton_GetTooltipText()
                 tooltipRichText = tooltipRichText.." \n"..TitanUtils_GetNormalText(name).."\n";
             end
 
+            -- Append Honor Kills
+            if(name == "Player vs. Player") then
+                local HKs, null = GetPVPLifetimeStats()
+                tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
+                format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
+            end
         end
 
     end
 
-    if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
-        -- Get Honor Kills
-        -- temp for testing: 999
-        local HKs, null = GetPVPLifetimeStats()
-        tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
-        format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
-    end
-
-    -- Get Honor Kills
-    if (TitanGetVar(TITAN_POINTS_ID, "ShowMem") ~=nil) then
-        tooltipRichText = tooltipRichText.." \n"..TITAN_POINTS_TOOLTIP_MEM.."\t|cff00FF00"..floor(GetAddOnMemoryUsage("TitanPoints")).." "..TITAN_POINTS_TOOLTIP_MEM_UNIT.."|r";
-    end
-
-    -- return button text
     return tooltipRichText;
 
 end

@@ -34,8 +34,12 @@ function TitanPanelPointsButton_OnLoad(self)
             DisplayOnRightSide = false
         },
         savedVariables = {
-            ShowNethershard = true,
-            ShowValor = true,
+            ShowLabelText = false,
+            watched = {
+                Nethershard = true,
+                Valor = true,
+                TimewarpedBadge = true
+            },
             ShowLabel = false,
             ShowPointLabels = false,
             ShowShortLabels = false,
@@ -44,7 +48,6 @@ function TitanPanelPointsButton_OnLoad(self)
             ShowHKs = true,
           }
     };
-
 
     -- Currency Events
     self:RegisterEvent("PLAYER_ENTERING_WORLD");
@@ -95,7 +98,7 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
 
     TitanPanelRightClickMenu_AddTitle(TitanPlugins[TITAN_POINTS_ID].menuText);
     TitanPanelRightClickMenu_AddToggleIcon(TITAN_POINTS_ID);
-    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABEL, TITAN_POINTS_ID, "ShowLabel");
+    TitanPanelRightClickMenu_AddToggleLabelText(TITAN_POINTS_ID);
     TitanPanelRightClickMenu_AddSpacer();
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ICONS, TITAN_POINTS_ID, "ShowIcons");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABELS, TITAN_POINTS_ID, "ShowPointLabels");
@@ -105,10 +108,18 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
 
     for CurrencyIndex=1, GetCurrencyListSize() do
         local name, isHeader, extra, extra, extra, extra, extra, extra, extra = GetCurrencyListInfo(CurrencyIndex);
-        local var = "Show"..name;
+        local var = TitanPanelPoints_getCurrencyKey(name);
 
         if(not isHeader) then
-            TitanPanelRightClickMenu_AddToggleVar(name, TITAN_POINTS_ID, var);
+            local info = {};
+            info.text = name;
+            info.value = name;
+            info.checked = TitanPanelPoints_isVisible(name);
+            info.func = function()
+                TitanPanelPoints_ToggleVisibility(name);
+            end
+            info.keepShownOnClick = 1;
+            UIDropDownMenu_AddButton(info, 1);
         else
             TitanPanelRightClickMenu_AddSpacer();
             TitanPanelRightClickMenu_AddTitle(name);
@@ -162,6 +173,28 @@ function TitanPanelPoints_GetLabel(CurrencyType)
     return "";
 end
 
+function TitanPanelPoints_getCurrencyKey(currencyName)
+    return gsub("Show"..currencyName, "[^%w]", "");
+end
+
+function TitanPanelPoints_ToggleVisibility(currencyName)
+    local set = TitanGetVar(TITAN_POINTS_ID, 'watched');
+    local key = TitanPanelPoints_getCurrencyKey(currencyName);
+    local value = true
+    if (TitanPanelPoints_isVisible(currencyName)) then
+        value = nil
+    end
+    set[key] = value;
+    TitanSetVar(TITAN_POINTS_ID, 'watched', set);
+    TitanPanelButton_UpdateButton(TITAN_POINTS_ID);
+end
+
+function TitanPanelPoints_isVisible(currencyName)
+    local set = TitanGetVar(TITAN_POINTS_ID, 'watched');
+    local key = TitanPanelPoints_getCurrencyKey(currencyName);
+    return set[key] ~= nil
+end
+
 ----------------------------------------------------------------------
 -- TitanPanelPointsButton_GetButtonText(id)
 ----------------------------------------------------------------------
@@ -171,16 +204,15 @@ function TitanPanelPointsButton_GetButtonText(id)
     local buttonRichText = "";
     local label = "";
 
-    if (TitanGetVar(TITAN_POINTS_ID,"ShowLabel") ~= nil) then
+    if (TitanGetVar(TITAN_POINTS_ID,"ShowLabelText") ~= nil) then
         label = TITAN_POINTS_BUTTON_LABEL;
     end
 
     for CurrencyIndex=1, GetCurrencyListSize() do
         local name, isHeader, nothing, nothing, nothing, count, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex)
-        local toggle = "Show"..name
 
         if (not isHeader) then
-            if (TitanGetVar(TITAN_POINTS_ID, toggle) ~= nil) then
+            if (TitanPanelPoints_isVisible(name)) then
                 if (TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
                     buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(name, icon)
                 end

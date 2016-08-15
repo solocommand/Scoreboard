@@ -36,9 +36,9 @@ function TitanPanelPointsButton_OnLoad(self)
         savedVariables = {
             ShowLabelText = false,
             watched = {
-                Nethershard = true,
-                Valor = true,
-                TimewarpedBadge = true
+                ShowNethershard = true,
+                ShowValor = true,
+                ShowTimewarpedBadge = true
             },
             ShowLabel = false,
             ShowPointLabels = false,
@@ -107,16 +107,15 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
     TitanPanelRightClickMenu_AddSpacer();
 
     for CurrencyIndex=1, GetCurrencyListSize() do
-        local name, isHeader, extra, extra, extra, extra, extra, extra, extra = GetCurrencyListInfo(CurrencyIndex);
-        local var = TitanPanelPoints_getCurrencyKey(name);
+        local name, isHeader, nothing, nothing, nothing, nothing, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex);
 
         if(not isHeader) then
             local info = {};
             info.text = name;
-            info.value = name;
-            info.checked = TitanPanelPoints_isVisible(name);
+            info.value = icon;
+            info.checked = TitanPanelPoints_isVisible(icon);
             info.func = function()
-                TitanPanelPoints_ToggleVisibility(name);
+                TitanPanelPoints_ToggleVisibility(icon);
             end
             info.keepShownOnClick = 1;
             UIDropDownMenu_AddButton(info, 1);
@@ -173,15 +172,17 @@ function TitanPanelPoints_GetLabel(CurrencyType)
     return "";
 end
 
-function TitanPanelPoints_getCurrencyKey(currencyName)
-    return gsub("Show"..currencyName, "[^%w]", "");
+function TitanPanelPoints_getCurrencyKey(icon)
+    local key = gsub("Show"..icon, "[^%w]", "");
+    -- DEFAULT_CHAT_FRAME:AddMessage("Points: "..icon.." key "..key);
+    return key;
 end
 
-function TitanPanelPoints_ToggleVisibility(currencyName)
+function TitanPanelPoints_ToggleVisibility(icon)
     local set = TitanGetVar(TITAN_POINTS_ID, 'watched');
-    local key = TitanPanelPoints_getCurrencyKey(currencyName);
+    local key = TitanPanelPoints_getCurrencyKey(icon);
     local value = true
-    if (TitanPanelPoints_isVisible(currencyName)) then
+    if (TitanPanelPoints_isVisible(icon)) then
         value = nil
     end
     set[key] = value;
@@ -189,9 +190,9 @@ function TitanPanelPoints_ToggleVisibility(currencyName)
     TitanPanelButton_UpdateButton(TITAN_POINTS_ID);
 end
 
-function TitanPanelPoints_isVisible(currencyName)
+function TitanPanelPoints_isVisible(icon)
     local set = TitanGetVar(TITAN_POINTS_ID, 'watched');
-    local key = TitanPanelPoints_getCurrencyKey(currencyName);
+    local key = TitanPanelPoints_getCurrencyKey(icon);
     return set[key] ~= nil
 end
 
@@ -212,7 +213,7 @@ function TitanPanelPointsButton_GetButtonText(id)
         local name, isHeader, nothing, nothing, nothing, count, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex)
 
         if (not isHeader) then
-            if (TitanPanelPoints_isVisible(name)) then
+            if (TitanPanelPoints_isVisible(icon)) then
                 if (TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
                     buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(name, icon)
                 end

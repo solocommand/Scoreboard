@@ -105,6 +105,10 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SHORT_LABELS, TITAN_POINTS_ID, "ShowShortLabels");
 
     TitanPanelRightClickMenu_AddSpacer();
+    
+    TitanPanelRightClickMenu_AddToggleVar("Honor Kills", TITAN_POINTS_ID, "ShowHKs");
+
+    TitanPanelRightClickMenu_AddSpacer();
 
     for CurrencyIndex=1, GetCurrencyListSize() do
         local name, isHeader, nothing, nothing, nothing, nothing, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex);
@@ -122,9 +126,6 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
         else
             TitanPanelRightClickMenu_AddSpacer();
             TitanPanelRightClickMenu_AddTitle(name);
-        end
-        if(name == "Player vs. Player") then
-            TitanPanelRightClickMenu_AddToggleVar("Honor Kills", TITAN_POINTS_ID, "ShowHKs");
         end
     end
 
@@ -257,12 +258,13 @@ function TitanPanelPointsButton_GetTooltipText()
                 tooltipRichText = tooltipRichText.." \n"..TitanUtils_GetNormalText(name).."\n";
             end
 
-            -- Append Honor Kills
-            if(name == "Player vs. Player") then
-                local HKs, null = GetPVPLifetimeStats()
-                tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
-                format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
-            end
+        end
+    
+        -- Append Honor Kills
+        if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
+            local HKs, null = GetPVPLifetimeStats()
+            tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
+            format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
         end
 
     end

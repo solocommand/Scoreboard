@@ -272,19 +272,14 @@ function TitanPanelPointsButton_GetTooltipText()
 
         end
 
-        -- Append Honor Kills
-        if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
-            local HKs, null = GetPVPLifetimeStats()
-            tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
-            format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
-        end
-
     end
 
     -- Append Honor Kills
-    local HKs, null = GetPVPLifetimeStats()
-    tooltipRichText = tooltipRichText.." \n"..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
-    format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
+    if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
+        local HKs, null = GetPVPLifetimeStats()
+        tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
+        format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
+    end
 
     return tooltipRichText;
 end

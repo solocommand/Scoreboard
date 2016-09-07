@@ -35,6 +35,7 @@ function TitanPanelPointsButton_OnLoad(self)
         },
         savedVariables = {
             ShowLabelText = false,
+            ShowCurrencyLimit = false,
             watched = {
                 ShowNethershard = true,
                 ShowValor = true,
@@ -102,10 +103,12 @@ function TitanPanelRightClickMenu_PreparePointsMenu()
     TitanPanelRightClickMenu_AddSpacer();
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_ICONS, TITAN_POINTS_ID, "ShowIcons");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_LABELS, TITAN_POINTS_ID, "ShowPointLabels");
+    TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_CURRENCY_LIMIT, TITAN_POINTS_ID, "ShowCurrencyLimit");
     TitanPanelRightClickMenu_AddToggleVar(TITAN_POINTS_MENU_SHORT_LABELS, TITAN_POINTS_ID, "ShowShortLabels");
+    TitanPanelRightClickMenu_AddToggleVar("Honor Kills", TITAN_POINTS_ID, "ShowHKs");
 
     TitanPanelRightClickMenu_AddSpacer();
-    
+
     TitanPanelRightClickMenu_AddToggleVar("Honor Kills", TITAN_POINTS_ID, "ShowHKs");
 
     TitanPanelRightClickMenu_AddSpacer();
@@ -211,14 +214,18 @@ function TitanPanelPointsButton_GetButtonText(id)
     end
 
     for CurrencyIndex=1, GetCurrencyListSize() do
-        local name, isHeader, nothing, nothing, nothing, count, icon, nothing, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex)
+        local name, isHeader, nothing, nothing, nothing, count, icon, maximum, nothing, nothing, nothing = GetCurrencyListInfo(CurrencyIndex)
 
         if (not isHeader) then
             if (TitanPanelPoints_isVisible(icon)) then
                 if (TitanGetVar(TITAN_POINTS_ID,"ShowIcons") ~= nil) then
                     buttonRichText = buttonRichText..TitanPanelPoints_GetIcon(name, icon)
                 end
-                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(name)..TitanUtils_GetHighlightText(count).." ");
+                buttonRichText = buttonRichText..format(TitanPanelPoints_GetLabel(name)..TitanUtils_GetHighlightText(count));
+                if (TitanGetVar(TITAN_POINTS_ID,"ShowCurrencyLimit") ~= nil and maximum > 0) then
+                    buttonRichText = buttonRichText.."/"..maximum;
+                end
+                buttonRichText = buttonRichText.." ";
             end
         end
     end
@@ -250,16 +257,21 @@ function TitanPanelPointsButton_GetTooltipText()
     if (TITAN_POINTS_LIST_SIZE > 0) then
 
         for CurrencyIndex=1, TITAN_POINTS_LIST_SIZE do
-            local name, isHeader, isExpanded, isUnused, isWatched, count, extraCurrencyType, icon, itemID = GetCurrencyListInfo(CurrencyIndex)
+            local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, hasWeeklyLimit, currentWeeklyAmount, unknown = GetCurrencyListInfo(CurrencyIndex);
+            -- local name, isHeader, isExpanded, isUnused, isWatched, count, extraCurrencyType, icon, itemID = GetCurrencyListInfo(CurrencyIndex)
 
             if(not isHeader) then
-                tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(name).."\t"..TitanUtils_GetHighlightText(count).."\n";
+                tooltipRichText = tooltipRichText..TitanUtils_GetHighlightText(name).."\t"..TitanUtils_GetHighlightText(count);
+                if (TitanGetVar(TITAN_POINTS_ID,"ShowCurrencyLimit") ~= nil and maximum > 0) then
+                    tooltipRichText = tooltipRichText.."/"..maximum;
+                end
+                tooltipRichText = tooltipRichText.."\n";
             else
                 tooltipRichText = tooltipRichText.." \n"..TitanUtils_GetNormalText(name).."\n";
             end
 
         end
-    
+
         -- Append Honor Kills
         if (TitanGetVar(TITAN_POINTS_ID, "ShowHKs") ~= nil) then
             local HKs, null = GetPVPLifetimeStats()
@@ -269,6 +281,10 @@ function TitanPanelPointsButton_GetTooltipText()
 
     end
 
-    return tooltipRichText;
+    -- Append Honor Kills
+    local HKs, null = GetPVPLifetimeStats()
+    tooltipRichText = tooltipRichText.." \n"..TitanUtils_GetHighlightText(TITAN_POINTS_HKS).."\t"..TitanUtils_GetHighlightText(HKs).."\n";
+    format(TitanPanelPoints_GetLabel(TITAN_POINTS_HKS), TitanUtils_GetHighlightText(HKs));
 
+    return tooltipRichText;
 end

@@ -35,7 +35,7 @@ function TitanPanelPointsButton_OnLoad(self)
         },
         savedVariables = {
             ShowLabelText = false,
-            ShowCurrencyLimit = false,
+            ShowCurrencyLimit = true,
             watched = {
                 ShowNethershard = true,
                 ShowValor = true,

@@ -1,0 +1,18 @@
+## Interface: 90001
+## Title: Scoreboard [|cff9900ccbeta|r]
+## Notes: A customizable data broker for displaying player currencies
+## Author: solocommand
+## SavedVariables: ScoreboardSettings
+## Version: 9.0.0
+
+vendor/LibStub.lua
+vendor/CallbackHandler-1.0.lua
+vendor/LibDataBroker-1.1.lua
+
+i18n/enUS.lua
+i18n/deDE.lua
+i18n/esES.lua
+i18n/ruRU.lua
+
+Scoreboard.lua
+config.lua

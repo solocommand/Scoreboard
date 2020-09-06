@@ -22,14 +22,23 @@ L["showHeadersDescription"] = "Show the currency groupings within the tooltip."
 L["useShortLabels"] = "Use short labels";
 L["useShortLabelsDescription"] = "Shorten the data text by changing the label to use an abbreviated form of the currency name."
 
--- L["resetSettings"] = "Reset settings";
+L["showPlaceholder"] = "Show placeholder text";
+L["showPlaceholderDescription"] = "When no currencies are visible, should placeholder text be shown (to allow you to quickly access settings).\nIf disabled, use the /scoreboard command to bring up this settings window."
+
+L["settingsTitle"] = "Settings";
+L["settingsDescription"] = "Settings description here";
+
+L["currenciesTitle"] = "Currencies"
+L["currenciesDescription"] = "Currencies description here";
 -- L["resetSettingsDescription"] = "Remove all customizations and set the options back to defaults."
 
 -- Messages
+L["No currencies can be displayed."] = "No currencies can be displayed.";
+L["usageDescription"] = "Left-click to view currencies. Right-click to configure."
 -- L["Settings have been reset to defaults."] = "Settings have been reset to defaults."
 
 -- Labels
 L["Scoreboard"] = "Scoreboard";
-L["Score: "] = "Score: ";
 L["Honor Kills"] = "Honor Kills";
+
 addon.L = L

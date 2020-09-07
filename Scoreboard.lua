@@ -3,13 +3,25 @@ local L = addon.L
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local function print(...) _G.print("|cff259054Scoreboard:|r", ...) end
 
-local GetCurrencyListInfo = function(...)
+function addon:GetCurrencyListInfo(...)
   if type(C_CurrencyInfo.GetCurrencyListInfo) == "function" then
     return C_CurrencyInfo.GetCurrencyListInfo(...)
   end
-  return GetCurrencyListInfo(...)
+  -- backport new table signature from BFA method
+  local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, _, _, _ = GetCurrencyListInfo(...)
+  return {
+    name=name,
+    isHeader=isHeader,
+    isHeaderExpanded=isExpanded,
+    isTypeUnused=isUnused,
+    isShowInBackpack=isWatched,
+    quantity=count,
+    iconFileID = icon,
+    maximum = maximum,
+  };
 end
-local GetCurrencyListSize = function()
+
+function addon:GetCurrencyListSize()
   if type(C_CurrencyInfo.GetCurrencyListSize) == "function" then
     return C_CurrencyInfo.GetCurrencyListSize()
   end
@@ -104,7 +116,7 @@ do
 
   local function updateText()
     local text = "";
-    local size = GetCurrencyListSize();
+    local size = addon:GetCurrencyListSize();
 
     local function renderItem(name, count, icon, mx)
       local t = ""
@@ -115,26 +127,32 @@ do
     end
 
     for i=1, size do
-      local name, isHeader, _, isUnused, _, count, icon, maximum, _, _, _ = GetCurrencyListInfo(i)
-
-      if (not isHeader) then
-        if (addon:getCurrency(icon) and not isUnused) then
-          text = text..renderItem(name, count, icon, maximum)
+      local c = addon:GetCurrencyListInfo(i)
+      if (not c.isHeader) then
+        if (addon:getCurrency(c.iconFileID) and not c.isTypeUnused) then
+          text = text..renderItem(name, c.quantity, c.iconFileID, c.maximum)
           if (i ~= size) then text = text.." " end
         end
       end
     end
 
     if (addon.db.showHKs) then
+      local faction, _ = UnitFactionGroup("player")
       local count, _ = GetPVPLifetimeStats()
-      text = text..renderItem(L["Honor Kills"], count, [[Interface\ICONS\Achievement_Pvp_p_01]], 0)
+      local icon = [[Interface\ICONS\achievement_pvp_p_01]]
+      if (faction == "Alliance") then
+        icon = [[Interface\ICONS\achievement_pvp_a_01]]
+      elseif (faction == "Horde") then
+        icon = [[Interface\ICONS\achievement_pvp_h_01]]
+      end
+      text = text..renderItem(L["Honor Kills"], count, icon, 0)
     end
 
     dataobj.text = text;
   end
 
   local function updateTooltip()
-    local size = GetCurrencyListSize()
+    local size = addon:GetCurrencyListSize()
 
     local function renderItem(name, count, icon, max)
       local t = ""
@@ -147,19 +165,18 @@ do
     GameTooltip:AddLine(muted(L["usageDescription"]))
 
     for i=1, size do
-      local name, isHeader, isExpanded, isUnused, _, count, icon, maximum, _, _, _ = GetCurrencyListInfo(i)
-
-      if isHeader then
-        if isExpanded and addon.db.showHeaders and name ~= "Unused" then
-          GameTooltip:AddLine(highlight(name).."\n")
+      local c = addon:GetCurrencyListInfo(i)
+      if c.isHeader then
+        if c.isHeaderExpanded and addon.db.showHeaders and c.name ~= "Unused" then
+          GameTooltip:AddLine(highlight(c.name).."\n")
         end
       else
-        if not isUnused then
+        if not c.isUnused then
           -- @todo stylize the count when nearing limit?
-          local ltext = fmtIcon(icon)..name
-          local rtext = highlight(count)
-          if addon.db.showLimits and maximum and maximum > 0 then
-            rtext = rtext.." / "..highlight(maximum)
+          local ltext = fmtIcon(c.iconFileID)..c.name
+          local rtext = highlight(c.quantity)
+          if addon.db.showLimits and c.maximum and c.maximum > 0 then
+            rtext = rtext.." / "..highlight(c.maximum)
           end
           GameTooltip:AddDoubleLine(ltext, rtext)
         end
@@ -167,11 +184,17 @@ do
     end
 
     if (addon.db.showHKs) then
-      local count, _ = GetPVPLifetimeStats()
-      local ltext = fmtIcon([[Interface\ICONS\Achievement_Pvp_p_01]])..L["Honor Kills"]
-      local rtext = highlight(count);
-      GameTooltip:AddLine(" ")
-      GameTooltip:AddDoubleLine(ltext, rtext)
+      GameTooltip:AddLine(highlight(L["PvP Stats"]).."\n")
+      local hks, dks, rank = GetPVPLifetimeStats()
+      -- @todo pull translations for kills?
+      GameTooltip:AddDoubleLine(L["Honorable Kills"], highlight(hks))
+      GameTooltip:AddDoubleLine(L["Dishonorable Kills"], highlight(dks))
+      GameTooltip:AddDoubleLine(L["Honor Rank"], muted("unknown"))
+      -- Honor rank ?
+
+      -- GameTooltip:AddDoubleLine(fmtIcon([[Interface\ICONS\Achievement_Pvp_p_03]])..L["Highest Rank"], highlight(rank))
+      -- local name, number = GetPVPRankInfo(rank);
+      -- GameTooltip:AddDoubleLine(fmtIcon([[Interface\ICONS\Achievement_Pvp_p_03]])..L["Highest Rank"], highlight(number..": "..name))
     elseif (size == 0) then
       GameTooltip:AddLine(muted(L["No currencies can be displayed."]))
     end

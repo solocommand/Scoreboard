@@ -68,10 +68,6 @@ frame:SetScript("OnShow", function(frame)
   showHeaders:SetChecked(addon.db.showHeaders)
   showHeaders:SetPoint("TOPLEFT", useShortLabels, "BOTTOMLEFT", 0, -8)
 
-  local showPlaceholder = newCheckbox(L.showPlaceholder, L.showPlaceholderDescription, function(_, value) addon:setDB("showPlaceholder", value) end)
-  showPlaceholder:SetChecked(addon.db.showPlaceholder)
-  showPlaceholder:SetPoint("TOPLEFT", showHeaders, "BOTTOMLEFT", 0, -8)
-
   -- Currencies
 
   local currencies = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
@@ -82,23 +78,22 @@ frame:SetScript("OnShow", function(frame)
   currenciesDescription:SetPoint("TOPLEFT", currencies, "BOTTOMLEFT", 0, -8)
   currenciesDescription:SetText(DISABLED_FONT_COLOR_CODE..L["currenciesDescription"]..FONT_COLOR_CODE_CLOSE)
 
-  local size = GetCurrencyListSize()
+  local size = addon:GetCurrencyListSize()
   local lastFrame = currenciesDescription
 
   for i=1, size do
-    local name, isHeader, isExpanded, isUnused, _, count, icon, maximum, _, _, _ = GetCurrencyListInfo(i)
-    if isHeader then
-      if isExpanded and name ~= "Unused" then
+    local c = addon:GetCurrencyListInfo(i)
+    if c.isHeader then
+      if c.isHeaderExpanded and c.name ~= "Unused" then
         local f = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
         f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -8)
-        f:SetText(NORMAL_FONT_COLOR_CODE..name..FONT_COLOR_CODE_CLOSE)
+        f:SetText(NORMAL_FONT_COLOR_CODE..c.name..FONT_COLOR_CODE_CLOSE)
         lastFrame = f
       end
     else
-      if not isUnused then
-        print("create checkbox for "..name)
-        local f = newCheckbox(name, nil, function(_, value) addon:setCurrency(icon, value) end)
-        f:SetChecked(addon:getCurrency(icon))
+      if not c.isTypeUnused then
+        local f = newCheckbox(c.name, nil, function(_, value) addon:setCurrency(c.iconFileID, value) end)
+        f:SetChecked(addon:getCurrency(c.iconFileID))
         f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -8)
         lastFrame = f
       end

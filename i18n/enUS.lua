@@ -39,6 +39,9 @@ L["usageDescription"] = "Left-click to view currencies. Right-click to configure
 
 -- Labels
 L["Scoreboard"] = "Scoreboard";
-L["Honor Kills"] = "Honor Kills";
+L["Honorable Kills"] = "Honorable Kills";
+L["Dishonorable Kills"] = "Dishonorable Kills";
+L["Honor Rank"] = "Honor Rank";
+L["PvP Stats"] = "PvP Stats";
 
 addon.L = L

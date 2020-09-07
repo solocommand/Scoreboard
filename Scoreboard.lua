@@ -83,7 +83,7 @@ do
   local tooltip = ""
   local dataobj = ldb:NewDataObject("Scoreboard", {
     type = "data source",
-    icon = "Interface\\PVPFrame\\PVP-Currency-Alliance",
+    icon = "Interface\\ICONS\\achievement_pvp_a_14",
     text = text,
     OnClick = function(self, button)
       if button == "RightButton" then

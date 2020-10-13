@@ -182,8 +182,6 @@ do
 
     if (addon.db.showHKs) then
       GameTooltip:AddLine(highlight(L["PvP Stats"]).."\n")
-      local hks, dks, rank = GetPVPLifetimeStats()
-      -- @todo pull translations for kills?
       local hks, dks = GetPVPLifetimeStats()
       local pct = string.format(" (%.f%%)", math.max(0, UnitHonor("player")) / math.max(1, UnitHonorMax("player")) * 100)
       GameTooltip:AddDoubleLine(L["Honorable Kills"], highlight(hks))

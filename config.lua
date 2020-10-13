@@ -19,28 +19,9 @@ local frame = addon.frame
 frame.name = addonName
 frame:Hide()
 
-local scrollFrame = CreateFrame("ScrollFrame", "ScoreboardConfigScrollFrame", frame, "UIPanelScrollFrameTemplate");
-local scrollChild = CreateFrame("Frame")
-
-local scrollbarName = scrollFrame:GetName()
-local scrollbar = _G[scrollbarName.."ScrollBar"];
-local scrollupbutton = _G[scrollbarName.."ScrollBarScrollUpButton"];
-local scrolldownbutton = _G[scrollbarName.."ScrollBarScrollDownButton"];
-
-scrollupbutton:ClearAllPoints();
-scrollupbutton:SetPoint("TOPRIGHT", scrollFrame, "TOPRIGHT", -4, -5);
-scrolldownbutton:ClearAllPoints();
-scrolldownbutton:SetPoint("BOTTOMRIGHT", scrollFrame, "BOTTOMRIGHT", -4, 4);
-scrollbar:ClearAllPoints();
-scrollbar:SetPoint("TOP", scrollupbutton, "BOTTOM", 0, -2);
-scrollbar:SetPoint("BOTTOM", scrolldownbutton, "TOP", 0, 2);
-scrollFrame:SetScrollChild(scrollChild);
-scrollFrame:SetAllPoints(frame);
-scrollChild:SetSize(scrollFrame:GetWidth(), scrollFrame:GetHeight() * 2);
-
-frame:SetScript("OnShow", function(parent)
+frame:SetScript("OnShow", function(frame)
   local function newCheckbox(label, description, onClick)
-    local check = CreateFrame("CheckButton", "ScoreboardCheck" .. label, scrollChild, "InterfaceOptionsCheckButtonTemplate")
+    local check = CreateFrame("CheckButton", "ScoreboardCheck" .. label, frame, "InterfaceOptionsCheckButtonTemplate")
     check:SetScript("OnClick", function(self)
       local tick = self:GetChecked()
       onClick(self, tick and true or false)
@@ -59,7 +40,7 @@ frame:SetScript("OnShow", function(parent)
 
   -- Settings
 
-  local title = scrollChild:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+  local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
   title:SetPoint("TOPLEFT", 16, -16)
   title:SetText(L["settingsTitle"])
 
@@ -89,11 +70,11 @@ frame:SetScript("OnShow", function(parent)
 
   -- Currencies
 
-  local currencies = parent:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+  local currencies = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
   currencies:SetPoint("TOPLEFT", 320, -16)
   currencies:SetText(L["currenciesTitle"])
 
-  local currenciesDescription = parent:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+  local currenciesDescription = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
   currenciesDescription:SetPoint("TOPLEFT", currencies, "BOTTOMLEFT", 0, -8)
   currenciesDescription:SetText(DISABLED_FONT_COLOR_CODE..L["currenciesDescription"]..FONT_COLOR_CODE_CLOSE)
 
@@ -104,7 +85,7 @@ frame:SetScript("OnShow", function(parent)
     local c = addon:GetCurrencyListInfo(i)
     if c.isHeader then
       if c.isHeaderExpanded and c.name ~= "Unused" then
-        local f = parent:CreateFontString(nil, "ARTWORK", "GameFontNormal")
+        local f = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
         f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -8)
         f:SetText(NORMAL_FONT_COLOR_CODE..c.name..FONT_COLOR_CODE_CLOSE)
         lastFrame = f

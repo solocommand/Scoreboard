@@ -184,14 +184,11 @@ do
       GameTooltip:AddLine(highlight(L["PvP Stats"]).."\n")
       local hks, dks, rank = GetPVPLifetimeStats()
       -- @todo pull translations for kills?
+      local hks, dks = GetPVPLifetimeStats()
+      local pct = string.format(" (%.f%%)", math.max(0, UnitHonor("player")) / math.max(1, UnitHonorMax("player")) * 100)
       GameTooltip:AddDoubleLine(L["Honorable Kills"], highlight(hks))
       GameTooltip:AddDoubleLine(L["Dishonorable Kills"], highlight(dks))
-      GameTooltip:AddDoubleLine(L["Honor Rank"], muted("unknown"))
-      -- Honor rank ?
-
-      -- GameTooltip:AddDoubleLine(fmtIcon([[Interface\ICONS\Achievement_Pvp_p_03]])..L["Highest Rank"], highlight(rank))
-      -- local name, number = GetPVPRankInfo(rank);
-      -- GameTooltip:AddDoubleLine(fmtIcon([[Interface\ICONS\Achievement_Pvp_p_03]])..L["Highest Rank"], highlight(number..": "..name))
+      GameTooltip:AddDoubleLine(L["Honor Level"], highlight(UnitHonorLevel("player"))..muted(pct))
     elseif (size == 0) then
       GameTooltip:AddLine(muted(L["No currencies can be displayed."]))
     end

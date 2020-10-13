@@ -1,7 +1,7 @@
 local addonName, addon = ...
 local L = addon.L
-local function print(...) _G.print("|cff259054Scoreboard:|r", ...) end
 
+-- Once 9.0.1 drops, remove the old methods in favor of the C_CurrencyInfo ones.
 local GetCurrencyListInfo = function(...)
   if type(C_CurrencyInfo.GetCurrencyListInfo) == "function" then
     return C_CurrencyInfo.GetCurrencyListInfo(...)
@@ -15,93 +15,97 @@ local GetCurrencyListSize = function()
   return GetCurrencyListSize()
 end
 
-local frame = addon.frame
-frame.name = addonName
-frame:Hide()
+local function build()
+  local t = {
+    name = "Scoreboard",
+    handler = Scoreboard,
+    type = 'group',
+    args = {
+      showHKs = {
+        type = 'toggle',
+        order = 1,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+        name = L.showHKs,
+        desc = L.showHKsDescription,
+      },
+      showIcons = {
+        type = 'toggle',
+        order = 2,
+        name = L.showIcons,
+        desc = L.showIconsDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
+      showLabels = {
+        type = 'toggle',
+        order = 3,
+        name = L.showLabels,
+        desc = L.showLabelsDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
+      showLimits = {
+        type = 'toggle',
+        order = 4,
+        name = L.showLimits,
+        desc = L.showLimitsDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
+      useShortLabels = {
+        type = 'toggle',
+        order = 5,
+        name = L.useShortLabels,
+        desc = L.useShortLabelsDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
+      showHeaders = {
+        type = 'toggle',
+        order = 7,
+        name = L.showHeaders,
+        desc = L.showHeadersDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
+      currencies = {
+        type = "header",
+        name = L["currenciesTitle"],
+        order = 10,
+      },
+    }
+  }
 
-frame:SetScript("OnShow", function(frame)
-  local function newCheckbox(label, description, onClick)
-    local check = CreateFrame("CheckButton", "ScoreboardCheck" .. label, frame, "InterfaceOptionsCheckButtonTemplate")
-    check:SetScript("OnClick", function(self)
-      local tick = self:GetChecked()
-      onClick(self, tick and true or false)
-      if tick then
-        PlaySound(856) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON
-      else
-        PlaySound(857) -- SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF
-      end
-    end)
-    check.label = _G[check:GetName() .. "Text"]
-    check.label:SetText(label)
-    check.tooltipText = label
-    check.tooltipRequirement = description
-    return check
-  end
-
-  -- Settings
-
-  local title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-  title:SetPoint("TOPLEFT", 16, -16)
-  title:SetText(L["settingsTitle"])
-
-  local showHKs = newCheckbox(L.showHKs, L.showHKsDescription, function(_, value) addon:setDB("showHKs", value) end)
-  showHKs:SetChecked(addon.db.showHKs)
-  showHKs:SetPoint("TOPLEFT", title, "BOTTOMLEFT", -2, -16)
-
-  local showIcons = newCheckbox(L.showIcons, L.showIconsDescription, function(_, value) addon:setDB("showIcons", value) end)
-  showIcons:SetChecked(addon.db.showIcons)
-  showIcons:SetPoint("TOPLEFT", showHKs, "BOTTOMLEFT", 0, -8)
-
-  local showLabels = newCheckbox(L.showLabels, L.showLabelsDescription, function(_, value) addon:setDB("showLabels", value) end)
-  showLabels:SetChecked(addon.db.showLabels)
-  showLabels:SetPoint("TOPLEFT", showIcons, "BOTTOMLEFT", 0, -8)
-
-  local showLimits = newCheckbox(L.showLimits, L.showLimitsDescription, function(_, value) addon:setDB("showLimits", value) end)
-  showLimits:SetChecked(addon.db.showLimits)
-  showLimits:SetPoint("TOPLEFT", showLabels, "BOTTOMLEFT", 0, -8)
-
-  local useShortLabels = newCheckbox(L.useShortLabels, L.useShortLabelsDescription, function(_, value) addon:setDB("useShortLabels", value) end)
-  useShortLabels:SetChecked(addon.db.useShortLabels)
-  useShortLabels:SetPoint("TOPLEFT", showLimits, "BOTTOMLEFT", 0, -8)
-
-  local showHeaders = newCheckbox(L.showHeaders, L.showHeadersDescription, function(_, value) addon:setDB("showHeaders", value) end)
-  showHeaders:SetChecked(addon.db.showHeaders)
-  showHeaders:SetPoint("TOPLEFT", useShortLabels, "BOTTOMLEFT", 0, -8)
-
-  -- Currencies
-
-  local currencies = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-  currencies:SetPoint("TOPLEFT", 320, -16)
-  currencies:SetText(L["currenciesTitle"])
-
-  local currenciesDescription = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-  currenciesDescription:SetPoint("TOPLEFT", currencies, "BOTTOMLEFT", 0, -8)
-  currenciesDescription:SetText(DISABLED_FONT_COLOR_CODE..L["currenciesDescription"]..FONT_COLOR_CODE_CLOSE)
-
-  local size = addon:GetCurrencyListSize()
-  local lastFrame = currenciesDescription
-
-  for i=1, size do
+  -- add currencies
+  for i=1, addon:GetCurrencyListSize() do
     local c = addon:GetCurrencyListInfo(i)
     if c.isHeader then
       if c.isHeaderExpanded and c.name ~= "Unused" then
-        local f = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
-        f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -8)
-        f:SetText(NORMAL_FONT_COLOR_CODE..c.name..FONT_COLOR_CODE_CLOSE)
-        lastFrame = f
+        t.args[c.name] = {
+          type = 'header',
+          order = 20 + i,
+          name = c.name,
+        }
       end
     else
       if not c.isTypeUnused then
-        local f = newCheckbox(c.name, nil, function(_, value) addon:setCurrency(c.iconFileID, value) end)
-        f:SetChecked(addon:getCurrency(c.iconFileID))
-        f:SetPoint("TOPLEFT", lastFrame, "BOTTOMLEFT", 0, -8)
-        lastFrame = f
+        t.args[c.name] = {
+          type = 'toggle',
+          order = 20 + i,
+          name = c.name,
+          get = function() return addon:getCurrency(c.iconFileID) end,
+          set = function(i, v) return addon:setCurrency(c.iconFileID, v) end,
+        }
       end
     end
   end
 
-  --
+  -- return our new table
+  return t
+end
 
-  frame:SetScript("OnShow", nil)
-end)
-InterfaceOptions_AddCategory(frame)
+-- @todo embed ace config/console, clean up later
+LibStub("AceConfig-3.0"):RegisterOptionsTable("Scoreboard", build, nil)
+addon.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, "Scoreboard")
+LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame) end)

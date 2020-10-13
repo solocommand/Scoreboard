@@ -67,9 +67,6 @@ do
     if type(sv.useShortLabels) ~= "boolean" then sv.useShortLabels = false end
     addon.db = sv
 
-		SlashCmdList.SCOREBOARD = showConfig
-		SLASH_SCOREBOARD1 = "/scoreboard"
-
 		self:SetScript("OnEvent", nil)
 	end)
 	eventFrame:RegisterEvent("ADDON_LOADED")
@@ -130,7 +127,7 @@ do
       local c = addon:GetCurrencyListInfo(i)
       if (not c.isHeader) then
         if (addon:getCurrency(c.iconFileID) and not c.isTypeUnused) then
-          text = text..renderItem(name, c.quantity, c.iconFileID, c.maximum)
+          text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maximum)
           if (i ~= size) then text = text.." " end
         end
       end

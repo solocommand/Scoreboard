@@ -1,7 +1,6 @@
 local addonName, addon = ...
 local L = addon.L
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
-local function print(...) _G.print("|cff259054Scoreboard:|r", ...) end
 
 local function showConfig()
   InterfaceOptionsFrame_OpenToCategory(addonName)

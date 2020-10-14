@@ -105,7 +105,6 @@ local function build()
   return t
 end
 
--- @todo embed ace config/console, clean up later
 LibStub("AceConfig-3.0"):RegisterOptionsTable("Scoreboard", build, nil)
 addon.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, "Scoreboard")
 LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame) end)

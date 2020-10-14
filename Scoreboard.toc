@@ -1,12 +1,21 @@
-## Interface: 90002
-## Title: Scoreboard [|cff9900cc9.0.1|r]
+## Interface: 90001
+## Title: Scoreboard
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand
 ## SavedVariables: ScoreboardSettings
-## Version: 9.0.1
+## Version: @project-version@
+## X-ReleaseDate: @project-date-iso@
+## X-License: MIT
+## OptionalDeps: Ace3, CallbackHandler-1.0, LibDataBroker-1.1
 
+#@no-lib-strip@
 vendor/LibStub.lua
 vendor/CallbackHandler-1.0.lua
+vendor/AceGUI-3.0/AceGUI-3.0.xml
+vendor/AceConfig-3.0/AceConfig-3.0.xml
+vendor/AceConsole-3.0/AceConsole-3.0.xml
+#@end-no-lib-strip@
+
 vendor/LibDataBroker-1.1.lua
 
 i18n/enUS.lua

@@ -6,22 +6,14 @@
 ## Version: @project-version@
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: MIT
-## OptionalDeps: Ace3, CallbackHandler-1.0, LibDataBroker-1.1
+## OptionalDeps: Ace3
 
-#@no-lib-strip@
-vendor/LibStub.lua
-vendor/CallbackHandler-1.0.lua
-vendor/AceGUI-3.0/AceGUI-3.0.xml
-vendor/AceConfig-3.0/AceConfig-3.0.xml
-vendor/AceConsole-3.0/AceConsole-3.0.xml
-#@end-no-lib-strip@
+embeds.xml
 
-vendor/LibDataBroker-1.1.lua
-
-i18n/enUS.lua
-i18n/deDE.lua
-i18n/esES.lua
-i18n/ruRU.lua
+i18n\enUS.lua
+i18n\deDE.lua
+i18n\esES.lua
+i18n\ruRU.lua
 
 Scoreboard.lua
 config.lua

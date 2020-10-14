@@ -3,31 +3,6 @@ local L = addon.L
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local function print(...) _G.print("|cff259054Scoreboard:|r", ...) end
 
-function addon:GetCurrencyListInfo(...)
-  if type(C_CurrencyInfo.GetCurrencyListInfo) == "function" then
-    return C_CurrencyInfo.GetCurrencyListInfo(...)
-  end
-  -- backport new table signature from BFA method
-  local name, isHeader, isExpanded, isUnused, isWatched, count, icon, maximum, _, _, _ = GetCurrencyListInfo(...)
-  return {
-    name=name,
-    isHeader=isHeader,
-    isHeaderExpanded=isExpanded,
-    isTypeUnused=isUnused,
-    isShowInBackpack=isWatched,
-    quantity=count,
-    iconFileID = icon,
-    maximum = maximum,
-  };
-end
-
-function addon:GetCurrencyListSize()
-  if type(C_CurrencyInfo.GetCurrencyListSize) == "function" then
-    return C_CurrencyInfo.GetCurrencyListSize()
-  end
-  return GetCurrencyListSize()
-end
-
 local function showConfig()
   InterfaceOptionsFrame_OpenToCategory(addonName)
   InterfaceOptionsFrame_OpenToCategory(addonName)
@@ -113,7 +88,7 @@ do
 
   local function updateText()
     local text = "";
-    local size = addon:GetCurrencyListSize();
+    local size = C_CurrencyInfo.GetCurrencyListSize();
 
     local function renderItem(name, count, icon, mx)
       local t = ""
@@ -124,7 +99,7 @@ do
     end
 
     for i=1, size do
-      local c = addon:GetCurrencyListInfo(i)
+      local c = C_CurrencyInfo.GetCurrencyListInfo(i)
       if (not c.isHeader) then
         if (addon:getCurrency(c.iconFileID) and not c.isTypeUnused) then
           text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maximum)
@@ -149,7 +124,7 @@ do
   end
 
   local function updateTooltip()
-    local size = addon:GetCurrencyListSize()
+    local size = C_CurrencyInfo.GetCurrencyListSize()
 
     local function renderItem(name, count, icon, max)
       local t = ""
@@ -162,7 +137,7 @@ do
     GameTooltip:AddLine(muted(L["usageDescription"]))
 
     for i=1, size do
-      local c = addon:GetCurrencyListInfo(i)
+      local c = C_CurrencyInfo.GetCurrencyListInfo(i)
       if c.isHeader then
         if c.isHeaderExpanded and addon.db.showHeaders and c.name ~= "Unused" then
           GameTooltip:AddLine(highlight(c.name).."\n")

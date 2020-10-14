@@ -1,20 +1,6 @@
 local addonName, addon = ...
 local L = addon.L
 
--- Once 9.0.1 drops, remove the old methods in favor of the C_CurrencyInfo ones.
-local GetCurrencyListInfo = function(...)
-  if type(C_CurrencyInfo.GetCurrencyListInfo) == "function" then
-    return C_CurrencyInfo.GetCurrencyListInfo(...)
-  end
-  return GetCurrencyListInfo(...)
-end
-local GetCurrencyListSize = function()
-  if type(C_CurrencyInfo.GetCurrencyListSize) == "function" then
-    return C_CurrencyInfo.GetCurrencyListSize()
-  end
-  return GetCurrencyListSize()
-end
-
 local function build()
   local t = {
     name = "Scoreboard",
@@ -78,8 +64,8 @@ local function build()
   }
 
   -- add currencies
-  for i=1, addon:GetCurrencyListSize() do
-    local c = addon:GetCurrencyListInfo(i)
+  for i=1, C_CurrencyInfo.GetCurrencyListSize() do
+    local c = C_CurrencyInfo.GetCurrencyListInfo(i)
     if c.isHeader then
       if c.isHeaderExpanded and c.name ~= "Unused" then
         t.args[c.name] = {

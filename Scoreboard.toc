@@ -1,0 +1,19 @@
+## Interface: 90001
+## Title: Scoreboard
+## Notes: A customizable data broker for displaying player currencies
+## Author: solocommand
+## SavedVariables: ScoreboardSettings
+## Version: @project-version@
+## X-ReleaseDate: @project-date-iso@
+## X-License: MIT
+## OptionalDeps: Ace3
+
+embeds.xml
+
+i18n\enUS.lua
+i18n\deDE.lua
+i18n\esES.lua
+i18n\ruRU.lua
+
+Scoreboard.lua
+config.lua

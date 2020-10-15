@@ -44,4 +44,7 @@ L["Dishonorable Kills"] = "Dishonorable Kills";
 L["Honor Level"] = "Honor Level";
 L["PvP Stats"] = "PvP Stats";
 
+L['Show minimap button'] = 'Show minimap button'
+L['Show the Scoreboard minimap button'] = 'Show the Scoreboard minimap button'
+
 addon.L = L

@@ -1,6 +1,7 @@
 local addonName, addon = ...
 local L = addon.L
 local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
+local ldbi = LibStub:GetLibrary('LibDBIcon-1.0')
 
 local function showConfig()
   InterfaceOptionsFrame_OpenToCategory(addonName)
@@ -30,9 +31,10 @@ do
     if loadedAddon ~= addonName then return end
     self:UnregisterEvent("ADDON_LOADED")
 
-    if type(ScoreboardSettings) ~= "table" then ScoreboardSettings = {currencies={}} end
+    if type(ScoreboardSettings) ~= "table" then ScoreboardSettings = {currencies={},minimap={hide=false}} end
     local sv = ScoreboardSettings
     if type(sv.currencies) ~= "table" then sv.currencies = {} end
+    if type(sv.minimap) ~= "table" then sv.minimap = {hide=false} end
     if type(sv.showHKs) ~= "boolean" then sv.showHKs = true end
     if type(sv.showIcons) ~= "boolean" then sv.showIcons = true end
     if type(sv.showLabels) ~= "boolean" then sv.showLabels = true end
@@ -40,6 +42,8 @@ do
     if type(sv.showHeaders) ~= "boolean" then sv.showHeaders = true end
     if type(sv.useShortLabels) ~= "boolean" then sv.useShortLabels = false end
     addon.db = sv
+
+    ldbi:Register(addonName, addon.dataobj, addon.db.minimap)
 
 		self:SetScript("OnEvent", nil)
 	end)
@@ -56,14 +60,26 @@ do
     type = "data source",
     icon = "Interface\\ICONS\\achievement_pvp_a_14",
     text = text,
+    OnEnter = function(frame)
+      GameTooltip:SetOwner(frame, "ANCHOR_NONE")
+      GameTooltip:SetPoint("TOPLEFT", frame, "BOTTOMLEFT")
+      GameTooltip:ClearLines()
+      addon:updateTooltip(frame)
+      GameTooltip:Show()
+    end,
+    OnLeave = function()
+      GameTooltip:Hide()
+    end,
     OnClick = function(self, button)
       if button == "RightButton" then
         showConfig()
       else
         ToggleCharacter("TokenFrame");
       end
-    end
+    end,
   })
+
+  addon.dataobj = dataobj
 
   -- Remove any non-word characters that cause issues saving in other locales
   local function getIconKey(icon) return gsub(icon, "[^%w]", "") end
@@ -122,7 +138,7 @@ do
     dataobj.text = text;
   end
 
-  local function updateTooltip()
+  function addon:updateTooltip()
     local size = C_CurrencyInfo.GetCurrencyListSize()
 
     local function renderItem(name, count, icon, max)
@@ -189,20 +205,4 @@ do
       updateText()
     end
   end)
-
-  function dataobj:OnTooltipShow()
-    updateTooltip(self)
-  end
-
-  function dataobj:OnEnter()
-    GameTooltip:SetOwner(self, "ANCHOR_NONE")
-    GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
-    GameTooltip:ClearLines()
-    dataobj.OnTooltipShow()
-    GameTooltip:Show()
-  end
-
-  function dataobj:OnLeave()
-    GameTooltip:Hide()
-  end
 end

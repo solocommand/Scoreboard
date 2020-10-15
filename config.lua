@@ -1,5 +1,6 @@
 local addonName, addon = ...
 local L = addon.L
+local ldbi = LibStub('LibDBIcon-1.0', true)
 
 local function build()
   local t = {
@@ -7,6 +8,19 @@ local function build()
     handler = Scoreboard,
     type = 'group',
     args = {
+      showMinimapIcon = {
+        type = 'toggle',
+        name = L['Show minimap button'],
+        desc = L['Show the Scoreboard minimap button'],
+        order = 0,
+        get = function(info) return not addon.db.minimap.hide end,
+        set = function(info, value)
+          local config = addon.db.minimap
+          config.hide = not value
+          addon:setDB("minimap", config)
+          ldbi:Refresh(addonName)
+        end,
+      },
       showHKs = {
         type = 'toggle',
         order = 1,

@@ -6,7 +6,9 @@
   <Include file="vendor\AceGUI-3.0\AceGUI-3.0.xml"/>
   <Include file="vendor\AceConfig-3.0\AceConfig-3.0.xml"/>
   <Include file="vendor\AceConsole-3.0\AceConsole-3.0.xml"/>
-  <Script file="vendor\LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
   <!--@end-no-lib-strip@-->
   <Script file="vendor\LibDataBroker-1.1\LibDataBroker-1.1.lua"/>
+  <!--@no-lib-strip@-->
+  <Script file="vendor\LibDBIcon-1.0\LibDBIcon-1.0.lua"/>
+  <!--@end-no-lib-strip@-->
 </Ui>

@@ -117,7 +117,7 @@ do
       local c = C_CurrencyInfo.GetCurrencyListInfo(i)
       if (not c.isHeader) then
         if (addon:getCurrency(c.iconFileID) and not c.isTypeUnused) then
-          text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maximum)
+          text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maxQuantity)
           if (i ~= size) then text = text.." " end
         end
       end
@@ -162,8 +162,8 @@ do
           -- @todo stylize the count when nearing limit?
           local ltext = fmtIcon(c.iconFileID)..c.name
           local rtext = highlight(c.quantity)
-          if addon.db.showLimits and c.maximum and c.maximum > 0 then
-            rtext = rtext.." / "..highlight(c.maximum)
+          if addon.db.showLimits and c.maxQuantity and c.maxQuantity > 0 then
+            rtext = rtext.." / "..highlight(c.maxQuantity)
           end
           GameTooltip:AddDoubleLine(ltext, rtext)
         end

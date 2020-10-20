@@ -94,8 +94,8 @@ local function build()
           type = 'toggle',
           order = 20 + i,
           name = c.name,
-          get = function() return addon:getCurrency(c.iconFileID) end,
-          set = function(i, v) return addon:setCurrency(c.iconFileID, v) end,
+          get = function() return addon:getCurrency(c.name) end,
+          set = function(i, v) return addon:setCurrency(c.name, v) end,
         }
       end
     end

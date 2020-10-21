@@ -41,6 +41,7 @@ do
     if type(sv.showLimits) ~= "boolean" then sv.showLimits = true end
     if type(sv.showHeaders) ~= "boolean" then sv.showHeaders = true end
     if type(sv.useShortLabels) ~= "boolean" then sv.useShortLabels = false end
+    if type(sv.disableUsageText) ~= "boolean" then sv.disableUsageText = false end
     addon.db = sv
 
     ldbi:Register(addonName, addon.dataobj, addon.db.minimap)
@@ -150,7 +151,9 @@ do
     end
 
     GameTooltip:AddLine(L["Scoreboard"].."\n")
-    GameTooltip:AddLine(muted(L["usageDescription"]))
+    if not addon.db.disableUsageText then
+      GameTooltip:AddLine(muted(L["usageDescription"]).."\n")
+    end
 
     for i=1, size do
       local c = C_CurrencyInfo.GetCurrencyListInfo(i)

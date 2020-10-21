@@ -23,8 +23,8 @@ if locale == "ruRU" then
 	L["useShortLabels"] = "Сокращения";
 	L["useShortLabelsDescription"] = "Сокращать названия валют.";
 
-	L["showPlaceholder"] = "Show placeholder text";
-	L["showPlaceholderDescription"] = "When no currencies are visible, should placeholder text be shown (to allow you to quickly access settings).\nIf disabled, use the /scoreboard command to bring up this settings window.";
+	L["disableUsageText"] = "Disable usage text"
+	L["disableUsageTextDescription"] = "If checked, the usage instructions will not be shown on the tooltip."
 
 	L["settingsTitle"] = "Settings";
 	L["settingsDescription"] = "Settings description here";

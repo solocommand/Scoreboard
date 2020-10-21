@@ -69,6 +69,14 @@ local function build()
         get = function(info) return addon.db[info[#info]] end,
         set = function(info, value) return addon:setDB(info[#info], value) end,
       },
+      disableUsageText = {
+        type = 'toggle',
+        order = 8,
+        name = L.disableUsageText,
+        desc = L.disableUsageTextDescription,
+        get = function(info) return addon.db[info[#info]] end,
+        set = function(info, value) return addon:setDB(info[#info], value) end,
+      },
       currencies = {
         type = "header",
         name = L["currenciesTitle"],

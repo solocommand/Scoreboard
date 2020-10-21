@@ -3,7 +3,7 @@ local addonName, addon = ...
 local locale = GetLocale()
 
 if locale == "esES" then
-    local L = {}
+    local L = addon.L
     L["ShowHKs"] = "Show Honor Kills";
     L["ShowHKsDescription"] = "Shows the total number of honor kills within the data text."
 

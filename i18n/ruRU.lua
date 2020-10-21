@@ -3,7 +3,7 @@ local addonName, addon = ...
 local locale = GetLocale()
 
 if locale == "ruRU" then
-    local L = {}
+    local L = addon.L
 -- Configuration options
 	L["showHKs"] = "Почётные победы";
 	L["showHKsDescription"] = "Показывать общее количество почётных побед.";

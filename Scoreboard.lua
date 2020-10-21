@@ -82,7 +82,7 @@ do
   addon.dataobj = dataobj
 
   -- Remove any non-word characters that cause issues saving in other locales
-  local function getCurrencyKey(name) return gsub(name, "[^a-zA-Z]", "") end
+  local function getIconKey(icon) return gsub(icon, "[^%w]", "") end
 
   local function fmtIcon(icon)
     local text
@@ -116,7 +116,7 @@ do
     for i=1, size do
       local c = C_CurrencyInfo.GetCurrencyListInfo(i)
       if (not c.isHeader) then
-        if (addon:getCurrency(c.name) and not c.isTypeUnused) then
+        if (addon:getCurrency(c.iconFileID) and not c.isTypeUnused) then
           text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maxQuantity)
           if (i ~= size) then text = text.." " end
         end
@@ -187,15 +187,15 @@ do
     updateText()
   end
 
-  function addon:setCurrency(name, value)
-    local nk = getCurrencyKey(name)
-    addon.db.currencies[nk] = value
+  function addon:setCurrency(icon, value)
+    local ik = getIconKey(icon)
+    addon.db.currencies[ik] = value
     updateText()
   end
 
-  function addon:getCurrency(name)
-    local nk = getCurrencyKey(name)
-    return addon.db.currencies[nk] == true
+  function addon:getCurrency(icon)
+    local ik = getIconKey(icon)
+    return addon.db.currencies[ik] == true
   end
 
   f:RegisterEvent("PLAYER_ENTERING_WORLD");

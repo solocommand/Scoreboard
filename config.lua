@@ -80,7 +80,7 @@ local function build()
   -- add currencies
   for i=1, C_CurrencyInfo.GetCurrencyListSize() do
     local c = C_CurrencyInfo.GetCurrencyListInfo(i)
-    local li = C_CurrencyInfo.GetCurrencyListLink(i)
+    local id = addon:getCurrencyIdFromIndex(i)
     if c.isHeader then
       if c.isHeaderExpanded and c.name ~= "Unused" then
         t.args[c.name] = {
@@ -95,8 +95,8 @@ local function build()
           type = 'toggle',
           order = 20 + i,
           name = c.name,
-          get = function() return addon:getCurrency(li) end,
-          set = function(i, v) return addon:setCurrency(li, v) end,
+          get = function() return addon:getCurrency(id) end,
+          set = function(i, v) return addon:setCurrency(id, v) end,
         }
       end
     end

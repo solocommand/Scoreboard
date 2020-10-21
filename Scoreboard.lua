@@ -81,11 +81,8 @@ do
 
   addon.dataobj = dataobj
 
-  -- Returns the currency id from the currency index
-  function addon:getCurrencyIdFromIndex(i)
-    local ilink = C_CurrencyInfo.GetCurrencyListLink(i)
-    return C_CurrencyInfo.GetCurrencyIDFromLink(ilink)
-  end
+  -- Remove any non-word characters that cause issues saving in other locales
+  local function getCurrencyKeyID(ilink) return C_CurrencyInfo.GetCurrencyIDFromLink(ilink) end
 
   local function fmtIcon(icon)
     local text
@@ -118,9 +115,9 @@ do
 
     for i=1, size do
       local c = C_CurrencyInfo.GetCurrencyListInfo(i)
-      local id = addon:getCurrencyIdFromIndex(i);
+      local li = C_CurrencyInfo.GetCurrencyListLink(i)
       if (not c.isHeader) then
-        if (addon:getCurrency(id) and not c.isTypeUnused) then
+        if (addon:getCurrency(li) and not c.isTypeUnused) then
           text = text..renderItem(c.name, c.quantity, c.iconFileID, c.maxQuantity)
           if (i ~= size) then text = text.." " end
         end
@@ -191,13 +188,15 @@ do
     updateText()
   end
 
-  function addon:setCurrency(id, value)
-    addon.db.currencies[id] = value
+  function addon:setCurrency(ilink, value)
+    local nk = getCurrencyKeyID(ilink)
+    addon.db.currencies[nk] = value
     updateText()
   end
 
-  function addon:getCurrency(id)
-    return addon.db.currencies[id] == true
+  function addon:getCurrency(ilink)
+    local nk = getCurrencyKeyID(ilink)
+    return addon.db.currencies[nk] == true
   end
 
   f:RegisterEvent("PLAYER_ENTERING_WORLD");

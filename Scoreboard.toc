@@ -1,4 +1,4 @@
-## Interface: 90105
+## Interface: 90200
 ## Title: Scoreboard
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand

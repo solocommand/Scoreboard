@@ -6,6 +6,7 @@
 ## Version: @project-version@
 ## X-ReleaseDate: @project-date-iso@
 ## X-License: MIT
+## X-Wago-ID: 5bGo7kG0
 ## OptionalDeps: Ace3
 
 embeds.xml

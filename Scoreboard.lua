@@ -66,7 +66,7 @@ do
       GameTooltip:SetOwner(frame, "ANCHOR_NONE")
       GameTooltip:SetPoint("TOPLEFT", frame, "BOTTOMLEFT")
       GameTooltip:ClearLines()
-      addon:updateTooltip(frame)
+      addon:updateTooltip()
       GameTooltip:Show()
     end,
     OnLeave = function()
@@ -144,13 +144,6 @@ do
   function addon:updateTooltip()
     local size = C_CurrencyInfo.GetCurrencyListSize()
 
-    local function renderItem(name, count, icon, max)
-      local t = ""
-      t = t..fmtIcon(icon)..normal(name)..highlight(count)
-      if (mx and mx > 0) then t = t.."/"..mx end
-      return t
-    end
-
     GameTooltip:AddLine(L["Scoreboard"].."\n")
     if not addon.db.disableUsageText then
       GameTooltip:AddLine(muted(L["usageDescription"]).."\n")
@@ -163,7 +156,7 @@ do
           GameTooltip:AddLine(highlight(c.name).."\n")
         end
       else
-        if not c.isUnused then
+        if not c.isTypeUnused then
           -- @todo stylize the count when nearing limit?
           local ltext = fmtIcon(c.iconFileID)..c.name
           local rtext = highlight(c.quantity)

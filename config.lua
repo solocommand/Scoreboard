@@ -29,7 +29,7 @@ local function build()
           local config = addon.db.minimap
           config.hide = not value
           addon:setDB("minimap", config)
-          ldbi:Refresh(addonName, addon.db)
+          ldbi:Refresh(addonName)
         end,
       },
       showInAddonCompartment = {
@@ -45,7 +45,6 @@ local function build()
           else
             ldbi:RemoveButtonFromCompartment(addonName)
           end
-          ldbi:Refresh(addonName, addon.db)
         end
       },
       disableUsageText = buildCheckbox("disableUsageText", 2),

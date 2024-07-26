@@ -4,8 +4,7 @@ local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local ldbi = LibStub:GetLibrary('LibDBIcon-1.0')
 
 local function showConfig()
-  InterfaceOptionsFrame_OpenToCategory(addonName)
-  InterfaceOptionsFrame_OpenToCategory(addonName)
+  Settings.OpenToCategory(addonName, true)
 end
 
 local function normal(text)
@@ -31,10 +30,11 @@ do
     if loadedAddon ~= addonName then return end
     self:UnregisterEvent("ADDON_LOADED")
 
-    if type(ScoreboardSettings) ~= "table" then ScoreboardSettings = {currencies={},minimap={hide=false}} end
+    if type(ScoreboardSettings) ~= "table" then ScoreboardSettings = {currencies={},minimap={hide=false},showInAddonCompartment=true} end
     local sv = ScoreboardSettings
     if type(sv.currencies) ~= "table" then sv.currencies = {} end
     if type(sv.minimap) ~= "table" then sv.minimap = {hide=false} end
+    if type(sv.showInAddonCompartment) ~= "boolean" then sv.showInAddonCompartment = true end
     if type(sv.showHKs) ~= "boolean" then sv.showHKs = true end
     if type(sv.showIcons) ~= "boolean" then sv.showIcons = true end
     if type(sv.showLabels) ~= "boolean" then sv.showLabels = true end
@@ -45,6 +45,7 @@ do
     addon.db = sv
 
     ldbi:Register(addonName, addon.dataobj, addon.db.minimap)
+    if (sv.showInAddonCompartment) then ldbi:AddButtonToCompartment(addonName) end
 
 		self:SetScript("OnEvent", nil)
 	end)
@@ -72,7 +73,7 @@ do
       GameTooltip:Hide()
     end,
     OnClick = function(self, button)
-      if button == "RightButton" then
+      if button == "RightButton" or self == nil then
         showConfig()
       else
         ToggleCharacter("TokenFrame");

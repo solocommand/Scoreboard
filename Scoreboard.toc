@@ -1,4 +1,4 @@
-## Interface: 100000
+## Interface: 110002
 ## Title: Scoreboard
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand
@@ -9,6 +9,7 @@
 ## X-Curse-Project-ID: 27055
 ## X-Wago-ID: 5bGo7kG0
 ## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
+## IconTexture: Interface\AddOns\Scoreboard\Scoreboard
 
 embeds.xml
 

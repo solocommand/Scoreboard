@@ -7,6 +7,9 @@ local L = {}
 L["showHKs"] = "Show Honor Kills";
 L["showHKsDescription"] = "Shows the total number of honor kills within the data text."
 
+L["showInAddonCompartment"] = "Show in compartment"
+L["showInAddonCompartmentDescription"] = "Toggles the display of Scoreboard within the addon compartment."
+
 L["showIcons"] = "Show currency icons";
 L["showIconsDescription"] = "Includes the relevant currency icon next to the amount owned within the data text."
 

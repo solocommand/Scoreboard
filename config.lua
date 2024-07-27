@@ -2,10 +2,21 @@ local addonName, addon = ...
 local L = addon.L
 local ldbi = LibStub('LibDBIcon-1.0', true)
 
+local function buildCheckbox(key, order)
+  return {
+    type = 'toggle',
+    name = L[key],
+    order = order or 0,
+    desc = L[key.."Description"],
+    get = function(info) return addon.db[info[#info]] end,
+    set = function(info, value) return addon:setDB(info[#info], value) end,
+  }
+end
+
 local function build()
+  local currencies = {}
   local t = {
     name = "Scoreboard",
-    handler = Scoreboard,
     type = 'group',
     args = {
       showMinimapIcon = {
@@ -21,66 +32,48 @@ local function build()
           ldbi:Refresh(addonName)
         end,
       },
-      showHKs = {
+      showInAddonCompartment = {
         type = 'toggle',
+        name = L.showInAddonCompartment,
+        desc = L.showInAddonCompartmentDescription,
         order = 1,
         get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-        name = L.showHKs,
-        desc = L.showHKsDescription,
+        set = function(info, value)
+          addon:setDB(info[#info], value)
+          if value then
+            ldbi:AddButtonToCompartment(addonName)
+          else
+            ldbi:RemoveButtonFromCompartment(addonName)
+          end
+        end
       },
-      showIcons = {
-        type = 'toggle',
-        order = 2,
-        name = L.showIcons,
-        desc = L.showIconsDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-      },
-      showLabels = {
-        type = 'toggle',
-        order = 3,
-        name = L.showLabels,
-        desc = L.showLabelsDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-      },
-      showLimits = {
-        type = 'toggle',
-        order = 4,
-        name = L.showLimits,
-        desc = L.showLimitsDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-      },
-      useShortLabels = {
-        type = 'toggle',
+      disableUsageText = buildCheckbox("disableUsageText", 2),
+      dataText = {
+        type = "group",
+        name = "Data Text",
         order = 5,
-        name = L.useShortLabels,
-        desc = L.useShortLabelsDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
+        args = {
+          showHKs = buildCheckbox("showHKs", 6),
+          showIcons = buildCheckbox("showIcons", 7),
+          showLabels = buildCheckbox("showLabels", 8),
+          showLimits = buildCheckbox("showLimits", 9),
+          useShortLabels = buildCheckbox("useShortLabels", 10),
+        },
       },
-      showHeaders = {
-        type = 'toggle',
-        order = 7,
-        name = L.showHeaders,
-        desc = L.showHeadersDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
-      },
-      disableUsageText = {
-        type = 'toggle',
-        order = 8,
-        name = L.disableUsageText,
-        desc = L.disableUsageTextDescription,
-        get = function(info) return addon.db[info[#info]] end,
-        set = function(info, value) return addon:setDB(info[#info], value) end,
+
+      tooltip = {
+        type = "group",
+        name = "Tooltip",
+        order = 15,
+        args = {
+          showHeaders = buildCheckbox("showHeaders", 16),
+        }
       },
       currencies = {
-        type = "header",
+        type = "group",
         name = L["currenciesTitle"],
-        order = 10,
+        order = 20,
+        args = currencies,
       },
     }
   }
@@ -91,17 +84,17 @@ local function build()
     local li = C_CurrencyInfo.GetCurrencyListLink(i)
     if c.isHeader then
       if c.isHeaderExpanded and c.name ~= "Unused" then
-        t.args[c.name] = {
+        currencies[c.name] = {
           type = 'header',
-          order = 20 + i,
+          order = 30 + i,
           name = c.name,
         }
       end
     else
       if not c.isTypeUnused then
-        t.args[c.name] = {
+        currencies[c.name] = {
           type = 'toggle',
-          order = 20 + i,
+          order = 30 + i,
           name = c.name,
           get = function() return addon:getCurrency(li) end,
           set = function(i, v) return addon:setCurrency(li, v) end,
@@ -116,4 +109,4 @@ end
 
 LibStub("AceConfig-3.0"):RegisterOptionsTable("Scoreboard", build, nil)
 addon.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, "Scoreboard")
-LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame) end)
+LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() Settings.OpenToCategory(addonName) end)

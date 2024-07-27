@@ -1,4 +1,4 @@
-## Interface: 100000
+## Interface: 110000, 110002
 ## Title: Scoreboard
 ## Notes: A customizable data broker for displaying player currencies
 ## Author: solocommand

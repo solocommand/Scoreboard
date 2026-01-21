@@ -4,7 +4,7 @@ local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
 local ldbi = LibStub:GetLibrary('LibDBIcon-1.0')
 
 local function showConfig()
-  Settings.OpenToCategory(addonName, true)
+  Settings.OpenToCategory(addon.optionsFrame)
 end
 
 local function normal(text)

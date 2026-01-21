@@ -108,5 +108,5 @@ local function build()
 end
 
 LibStub("AceConfig-3.0"):RegisterOptionsTable("Scoreboard", build, nil)
-addon.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, "Scoreboard")
-LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() Settings.OpenToCategory(addonName) end)
+_, addon.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addonName)
+LibStub("AceConsole-3.0"):RegisterChatCommand("scoreboard", function() Settings.OpenToCategory(addon.optionsFrame) end)
